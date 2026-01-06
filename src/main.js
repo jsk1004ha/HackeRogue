@@ -1307,6 +1307,9 @@ function showPPRestoreScreen(mon, item) {
       mon.restorePp(idx, item.ppRestore || 10);
       showToast(`${mon.name}의 ${mon.moves[idx].name} PP가 회복되었습니다!`, 'success');
 
+      // Track source before clearing
+      const wasReward = selectedItemSource === 'reward';
+
       // Consume Item Logic (Manual consumption since handling UI)
       if (selectedItemSource === 'shop') {
         gameState.money -= item.price;
@@ -1319,7 +1322,13 @@ function showPPRestoreScreen(mon, item) {
 
       selectedItem = null;
       selectedItemSource = null;
-      renderRewardShop();
+
+      // If it was a reward item, proceed to next wave. If shop, stay in shop.
+      if (wasReward) {
+        proceedAfterReward();
+      } else {
+        renderRewardShop();
+      }
     };
   });
 }
