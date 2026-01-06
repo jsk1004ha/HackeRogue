@@ -1,4 +1,14 @@
 
+import hakbeomImg from './assets/hackemon/학범몬.png';
+import sangwonImg from './assets/hackemon/상원몬.png';
+import wookgaeImg from './assets/hackemon/욱개몬.png';
+import sangwookImg from './assets/hackemon/상욱몬.png';
+import jioImg from './assets/hackemon/지오몬.png';
+import hanbiImg from './assets/hackemon/한비몬.png';
+import jaeseongImg from './assets/hackemon/재성몬.png';
+import haeumImg from './assets/hackemon/하음몬.png';
+import junhyeokImg from './assets/hackemon/준혁몬.png';
+
 export const Types = {
     PHYSICS: 'physics',
     CHEMISTRY: 'chemistry',
@@ -290,7 +300,7 @@ export const HackemonData = {
     LEE_HAK_BEOM: {
         name: '학범몬',
         type: Types.CHEMISTRY,
-        image: './public/hackemon/학범몬.png',
+        image: hakbeomImg,
         baseStats: { hp: 90, attack: 60, defense: 60, speed: 40 },
         moves: ['BINGE_EAT', 'TACKLE', 'KUMCHEOK', 'DIET_PLAN', 'MICRO_FUEL', 'HUG'],
         abilities: ['THICK_FAT', 'GUTS'],
@@ -299,7 +309,7 @@ export const HackemonData = {
     KIM_SANG_WON: {
         name: '상원몬',
         type: Types.PHYSICS,
-        image: './public/hackemon/상원몬.png',
+        image: sangwonImg,
         baseStats: { hp: 60, attack: 80, defense: 50, speed: 70 },
         moves: ['POOP_TERROR', 'SEXY_MAN', 'FART_TERROR', 'TERMINAL', 'FORTY_SEVEN', 'STEAL_EAT'],
         abilities: ['HUGE_POWER', 'MOXIE'],
@@ -308,7 +318,7 @@ export const HackemonData = {
     AHN_WOOK_GAE: {
         name: '욱개몬',
         type: Types.ENGINEERING,
-        image: './public/hackemon/욱개몬.png',
+        image: wookgaeImg,
         baseStats: { hp: 65, attack: 85, defense: 55, speed: 65 },
         moves: ['CRUNCH', 'COLOR_BLIND', 'FACTORIAL', 'QUADRUPED', 'OREO', 'DRUM'],
         abilities: ['ADAPTABILITY', 'INTIMIDATE'],
@@ -317,7 +327,7 @@ export const HackemonData = {
     PARK_SANG_WOOK: {
         name: '상욱몬',
         type: Types.PHYSICS,
-        image: './public/hackemon/상욱몬.png',
+        image: sangwookImg,
         baseStats: { hp: 70, attack: 75, defense: 60, speed: 60 },
         moves: ['CRUNCH', 'ARMPIT', 'NONSENSE', 'PIRATE_KING', 'YUMIKATSU', 'INJEONG_SSAM', 'CAREER_CLASS'],
         abilities: ['GUTS', 'INTIMIDATE'],
@@ -326,7 +336,7 @@ export const HackemonData = {
     EOM_JI_O: {
         name: '지오몬',
         type: Types.CHEMISTRY,
-        image: './public/hackemon/지오몬.png',
+        image: jioImg,
         baseStats: { hp: 55, attack: 70, defense: 50, speed: 80 },
         moves: ['EOM_SMELL', 'EOM_OEBA', 'TNT_DROP', 'SUCCESSFULLY', 'METEOR', 'UM'],
         abilities: ['SPEED_BOOST', 'ADAPTABILITY'],
@@ -335,7 +345,7 @@ export const HackemonData = {
     JO_HAN_BI: {
         name: '한비몬',
         type: Types.PHYSICS,
-        image: './public/hackemon/한비몬.png',
+        image: hanbiImg,
         baseStats: { hp: 50, attack: 65, defense: 50, speed: 95 },
         moves: ['STEALTH', 'KKAMBI', 'MINIMIZE', 'HAIR_POWDER', 'FETCH_WATER', 'CAN_THROW', 'NIGA'],
         abilities: ['SPEED_BOOST', 'SNIPER'],
@@ -344,7 +354,7 @@ export const HackemonData = {
     JUNG_JAE_SEONG: {
         name: '재성몬',
         type: Types.PHYSICS,
-        image: './public/hackemon/재성몬.png',
+        image: jaeseongImg,
         baseStats: { hp: 65, attack: 85, defense: 50, speed: 65 },
         moves: ['BITE', 'GESUNGJAEI', 'HEAD_SMASH', 'RABIES', 'BLANKET_STEAL', 'OVERSLEEP', 'CAN_THROW'],
         abilities: ['MOXIE', 'GUTS'],
@@ -353,7 +363,7 @@ export const HackemonData = {
     LEE_HA_EUM: {
         name: '하음몬',
         type: Types.BIOLOGY,
-        image: './public/hackemon/하음몬.png',
+        image: haeumImg,
         baseStats: { hp: 60, attack: 60, defense: 60, speed: 60 },
         moves: ['IDLE', 'LOLI', 'MINIMIZE', 'BINGE_EAT', 'CRUTCH', 'METEOR', 'BOOK_TALK'],
         abilities: ['IRON_WALL', 'STURDY'],
@@ -362,7 +372,7 @@ export const HackemonData = {
     YANG_JUN_HYEOK: {
         name: '준혁몬',
         type: Types.PHYSICS,
-        image: './public/hackemon/준혁몬.png',
+        image: junhyeokImg,
         baseStats: { hp: 70, attack: 65, defense: 65, speed: 55 },
         moves: ['CLUB_APP', 'OWL_MAN', 'GONJIAM', 'CHARACTER_ED', 'RICH_BOY'],
         abilities: ['THICK_FAT', 'STURDY'],
