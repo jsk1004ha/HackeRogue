@@ -1,0 +1,377 @@
+
+export const Types = {
+    PHYSICS: 'physics',
+    CHEMISTRY: 'chemistry',
+    ENGINEERING: 'engineering',
+    BIOLOGY: 'biology',
+    EARTH: 'earth',
+    MATH: 'math',
+    INFO: 'info',
+    NORMAL: 'normal'
+};
+
+export const TypeChart = {
+    [Types.PHYSICS]: { strong: [Types.CHEMISTRY, Types.EARTH], weak: [Types.ENGINEERING, Types.MATH, Types.INFO] },
+    [Types.CHEMISTRY]: { strong: [Types.BIOLOGY, Types.EARTH], weak: [Types.PHYSICS] },
+    [Types.ENGINEERING]: { strong: [Types.PHYSICS, Types.INFO], weak: [Types.MATH, Types.BIOLOGY] },
+    [Types.BIOLOGY]: { strong: [Types.ENGINEERING], weak: [Types.CHEMISTRY, Types.EARTH] },
+    [Types.EARTH]: { strong: [Types.BIOLOGY, Types.MATH], weak: [Types.PHYSICS, Types.CHEMISTRY] },
+    [Types.MATH]: { strong: [Types.PHYSICS, Types.ENGINEERING], weak: [Types.INFO] },
+    [Types.INFO]: { strong: [Types.MATH, Types.PHYSICS], weak: [Types.ENGINEERING] },
+    [Types.NORMAL]: { strong: [], weak: [] }
+};
+
+export const TypeNames = {
+    [Types.PHYSICS]: '물리',
+    [Types.CHEMISTRY]: '화학',
+    [Types.ENGINEERING]: '공학',
+    [Types.BIOLOGY]: '생물',
+    [Types.EARTH]: '지구',
+    [Types.MATH]: '수학',
+    [Types.INFO]: '정보',
+    [Types.NORMAL]: '일반'
+};
+
+// ============== ABILITIES ==============
+export const Abilities = {
+    IRON_WALL: { id: 'IRON_WALL', name: '철벽', desc: '방어력 +20%', effect: 'def_boost', value: 1.2 },
+    INTIMIDATE: { id: 'INTIMIDATE', name: '위협', desc: '등장 시 상대 공격력 -1', effect: 'on_entry_debuff_atk' },
+    HUGE_POWER: { id: 'HUGE_POWER', name: '천하장사', desc: '공격력 +50%', effect: 'atk_boost', value: 1.5 },
+    ADAPTABILITY: { id: 'ADAPTABILITY', name: '적응력', desc: '자속 보정 2배', effect: 'stab_boost' },
+    SPEED_BOOST: { id: 'SPEED_BOOST', name: '가속', desc: '매 턴 스피드 +1', effect: 'speed_up_each_turn' },
+    THICK_FAT: { id: 'THICK_FAT', name: '두꺼운지방', desc: '받는 데미지 -10%', effect: 'damage_reduce', value: 0.9 },
+    GUTS: { id: 'GUTS', name: '근성', desc: '상태이상 시 공격 +50%', effect: 'guts' },
+    MOXIE: { id: 'MOXIE', name: '자기과신', desc: '적 처치 시 공격 +1', effect: 'moxie' },
+    STURDY: { id: 'STURDY', name: '옹골참', desc: '일격 기절 방지 (HP 1)', effect: 'sturdy' },
+    SNIPER: { id: 'SNIPER', name: '스나이퍼', desc: '급소 데미지 2.25배', effect: 'crit_boost', value: 2.25 }
+};
+
+// ============== NATURES (25 types) ==============
+export const Natures = {
+    // Neutral
+    HARDY: { id: 'HARDY', name: '노력', boost: null, reduce: null },
+    DOCILE: { id: 'DOCILE', name: '온순', boost: null, reduce: null },
+    SERIOUS: { id: 'SERIOUS', name: '성실', boost: null, reduce: null },
+    BASHFUL: { id: 'BASHFUL', name: '수줍음', boost: null, reduce: null },
+    QUIRKY: { id: 'QUIRKY', name: '변덕', boost: null, reduce: null },
+    // ATK up
+    LONELY: { id: 'LONELY', name: '외로움', boost: 'attack', reduce: 'defense' },
+    BRAVE: { id: 'BRAVE', name: '용감', boost: 'attack', reduce: 'speed' },
+    ADAMANT: { id: 'ADAMANT', name: '고집', boost: 'attack', reduce: 'spAtk' },
+    NAUGHTY: { id: 'NAUGHTY', name: '개구쟁이', boost: 'attack', reduce: 'spDef' },
+    // DEF up
+    BOLD: { id: 'BOLD', name: '대담', boost: 'defense', reduce: 'attack' },
+    RELAXED: { id: 'RELAXED', name: '무사태평', boost: 'defense', reduce: 'speed' },
+    IMPISH: { id: 'IMPISH', name: '짓궂음', boost: 'defense', reduce: 'spAtk' },
+    LAX: { id: 'LAX', name: '촐랑', boost: 'defense', reduce: 'spDef' },
+    // SPD up
+    TIMID: { id: 'TIMID', name: '겁쟁이', boost: 'speed', reduce: 'attack' },
+    HASTY: { id: 'HASTY', name: '성급', boost: 'speed', reduce: 'defense' },
+    JOLLY: { id: 'JOLLY', name: '명랑', boost: 'speed', reduce: 'spAtk' },
+    NAIVE: { id: 'NAIVE', name: '천진난만', boost: 'speed', reduce: 'spDef' }
+};
+
+// ============== MOVES ==============
+export const Moves = {
+    // Common
+    TACKLE: { name: '몸통박치기', type: Types.NORMAL, power: 40, accuracy: 100, pp: 35, desc: '몸을 부딪쳐 데미지를 준다.' },
+
+    // 1. Lee Hak-beom (Chemistry)
+    BINGE_EAT: { name: '많이 먹기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 10, effect: 'heal', desc: 'HP의 50%를 회복한다.' },
+    KUMCHEOK: { name: '쿰척 쿰척', type: Types.NORMAL, power: 0, accuracy: 90, pp: 20, effect: 'debuff_atk', desc: '상대의 공격력을 낮춘다.' },
+    DIET_PLAN: { name: '나 살 뺄거야', type: Types.NORMAL, power: 0, accuracy: 100, pp: 20, effect: 'buff_def', desc: '방어력을 올린다.' },
+    MICRO_FUEL: { name: '미쉥물 연료 젼줴', type: Types.CHEMISTRY, power: 70, accuracy: 90, pp: 15, desc: '미생물 연료로 강력한 공격!' },
+    HUG: { name: '함 안아보자', type: Types.NORMAL, power: 60, accuracy: 85, pp: 10, effect: 'stun', desc: '안아서 다음 턴 행동불능.' },
+
+    // 2. Kim Sang-won (Physics)
+    POOP_TERROR: { name: '똥테러', type: Types.PHYSICS, power: 65, accuracy: 90, pp: 15, desc: '강력한 물리 공격.' },
+    SEXY_MAN: { name: '물섹남', type: Types.PHYSICS, power: 0, accuracy: 100, pp: 20, effect: 'buff_atk', desc: '공격력을 크게 올린다.' },
+    FART_TERROR: { name: '방귀테러', type: Types.PHYSICS, power: 30, accuracy: 90, pp: 20, effect: 'dot', desc: '3턴 동안 지속 데미지.' },
+    TERMINAL: { name: '터미널', type: Types.PHYSICS, power: 0, accuracy: 80, pp: 10, effect: 'stun', desc: '상대를 기절시킨다.' },
+    FORTY_SEVEN: { name: '47!!!', type: Types.PHYSICS, power: 80, accuracy: 85, pp: 10, highCrit: true, desc: '김상원 생물 점수는..?' },
+    STEAL_EAT: { name: '뺏어 먹기', type: Types.NORMAL, power: 40, accuracy: 100, pp: 15, effect: 'drain', desc: '데미지의 50% 회복.' },
+
+    // 3. Ahn Wook-gae (Engineering)
+    CRUNCH: { name: '깨물어 부수기', type: Types.ENGINEERING, power: 70, accuracy: 100, pp: 15, desc: '강하게 깨문다.' },
+    COLOR_BLIND: { name: '적록색맹', type: Types.ENGINEERING, power: 0, accuracy: 90, pp: 20, effect: 'debuff_acc', desc: '상대 명중률 하락.' },
+    FACTORIAL: { name: '7!=720', type: Types.MATH, power: 100, accuracy: 70, pp: 5, highCrit: true, desc: '7!=...?' },
+    QUADRUPED: { name: '4족 보행', type: Types.NORMAL, power: 0, accuracy: 100, pp: 20, effect: 'buff_atk', desc: '공격력을 올린다.' },
+    OREO: { name: '민생 회복 오레오', type: Types.NORMAL, power: 0, accuracy: 100, pp: 10, effect: 'heal', desc: 'HP의 50%를 회복.' },
+    DRUM: { name: '드럼통', type: Types.ENGINEERING, power: 0, accuracy: 80, pp: 10, effect: 'stun', desc: '드럼통으로 기절!' },
+
+    // 4. Park Sang-wook (Physics)
+    ARMPIT: { name: '겨드랑이', type: Types.NORMAL, power: 0, accuracy: 90, pp: 20, effect: 'debuff_acc', desc: '상대 명중률 하락.' },
+    NONSENSE: { name: '뻘소리', type: Types.NORMAL, power: 0, accuracy: 80, pp: 15, effect: 'stun', desc: '뻘소리로 혼란!' },
+    PIRATE_KING: { name: '해적왕', type: Types.PHYSICS, power: 75, accuracy: 95, pp: 15, desc: '해적왕의 일격!' },
+    YUMIKATSU: { name: '유미카츠', type: Types.NORMAL, power: 0, accuracy: 100, pp: 10, effect: 'heal', desc: 'HP 50% 회복.' },
+    INJEONG_SSAM: { name: '인정쌤', type: Types.NORMAL, power: 0, accuracy: 100, pp: 20, effect: 'buff_atk', desc: '공격력 상승.' },
+    CAREER_CLASS: { name: '4교시는 진로야', type: Types.PHYSICS, power: 60, accuracy: 100, pp: 20, desc: '진로 시간의 힘.' },
+
+    // 5. Eom Ji-o (Chemistry)
+    EOM_SMELL: { name: '엄발내', type: Types.CHEMISTRY, power: 20, accuracy: 95, pp: 25, effect: 'dot', desc: '3턴 지속 데미지.' },
+    EOM_OEBA: { name: '엄메바', type: Types.CHEMISTRY, power: 0, accuracy: 100, pp: 20, effect: 'buff_spd', desc: '스피드 상승.' },
+    TNT_DROP: { name: 'TNT 떨어져서 왔는데요?', type: Types.CHEMISTRY, power: 0, accuracy: 100, pp: 10, effect: 'heal', desc: 'HP 50% 회복.' },
+    SUCCESSFULLY: { name: '성공적으로', type: Types.EARTH, power: 0, accuracy: 100, pp: 5, effect: 'buff_all', desc: '모든 능력치 상승!' },
+    METEOR: { name: '메테오', type: Types.EARTH, power: 90, accuracy: 80, pp: 5, highCrit: true, desc: '운석으로 강타!' },
+    UM: { name: '엄', type: Types.NORMAL, power: 50, accuracy: 100, pp: 30, desc: '엄.' },
+
+    // 6. Jo Han-bi (Physics)
+    STEALTH: { name: '은신', type: Types.NORMAL, power: 0, accuracy: 100, pp: 20, effect: 'buff_eva', desc: '회피율 상승.' },
+    KKAMBI: { name: '깜비', type: Types.PHYSICS, power: 60, accuracy: 100, pp: 20, desc: '어디있는지 안보여!' },
+    MINIMIZE: { name: '작아지기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 20, effect: 'buff_eva', desc: '회피율 상승.' },
+    HAIR_POWDER: { name: '흑채복사', type: Types.PHYSICS, power: 55, accuracy: 95, pp: 20, desc: '흑채의 힘.' },
+    FETCH_WATER: { name: '물길러오기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 10, effect: 'heal', desc: 'HP 50% 회복.' },
+    CAN_THROW: { name: '캔날리기', type: Types.PHYSICS, power: 50, accuracy: 95, pp: 25, highCrit: true, desc: '캔을 던진다. 급소율↑' },
+    NIGA: { name: '니가', type: Types.NORMAL, power: 65, accuracy: 100, pp: 20, desc: '"어둠".' },
+
+    // 7. Jung Jae-seong (Physics)
+    BITE: { name: '물기', type: Types.NORMAL, power: 60, accuracy: 100, pp: 25, desc: '물어뜯는다.' },
+    GESUNGJAEI: { name: '게성재이', type: Types.NORMAL, power: 0, accuracy: 100, pp: 15, effect: 'debuff_def', desc: '상대 방어력 하락.' },
+    HEAD_SMASH: { name: '대가리 부수기', type: Types.PHYSICS, power: 90, accuracy: 85, pp: 10, recoil: true, desc: '강력하지만 반동!' },
+    RABIES: { name: '광견병', type: Types.BIOLOGY, power: 0, accuracy: 90, pp: 15, effect: 'buff_atk', desc: '공격력 크게 상승.' },
+    BLANKET_STEAL: { name: '담요뺏기', type: Types.NORMAL, power: 50, accuracy: 100, pp: 20, desc: '담요를 뺏는다.' },
+    OVERSLEEP: { name: '늦잠자기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 5, effect: 'full_heal_sleep', desc: 'HP 100% 회복, 2턴 수면.' },
+
+    // 8. Lee Ha-eum (Biology)
+    IDLE: { name: '아이들', type: Types.BIOLOGY, power: 60, accuracy: 95, pp: 20, desc: '생물의 힘.' },
+    LOLI: { name: '로리', type: Types.BIOLOGY, power: 65, accuracy: 90, pp: 15, desc: '강력한 공격.' },
+    CRUTCH: { name: '목발 짚기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 20, effect: 'buff_def', desc: '방어력 상승.' },
+    BOOK_TALK: { name: '책톡', type: Types.BIOLOGY, power: 55, accuracy: 100, pp: 25, desc: '지혜의 힘!' },
+
+    // 9. Yang Jun-hyeok (Physics)
+    CLUB_APP: { name: '동아리 지원서 제출', type: Types.PHYSICS, power: 60, accuracy: 95, pp: 20, desc: '누군가의 힘.' },
+    OWL_MAN: { name: '부엉남', type: Types.PHYSICS, power: 70, accuracy: 90, pp: 15, desc: '부엉이의 힘.' },
+    GONJIAM: { name: '곤지암 사진 보여주기', type: Types.NORMAL, power: 0, accuracy: 90, pp: 15, effect: 'stun', desc: '무서워서 기절!' },
+    CHARACTER_ED: { name: '인성교육받기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 10, effect: 'heal', desc: 'HP 50% 회복.' },
+    RICH_BOY: { name: '부잣집 도련님', type: Types.NORMAL, power: 0, accuracy: 100, pp: 5, effect: 'money', desc: '돈을 2배 획득.' }
+};
+
+// Get all learnable moves for a hackemon type
+export function getLearnableMoves(hackemonType) {
+    return Object.entries(Moves)
+        .filter(([key, move]) => move.type === hackemonType || move.type === Types.NORMAL)
+        .map(([key, move]) => ({ ...move, key }));
+}
+
+// ============== HACKEMON CLASS ==============
+export function getXpToLevel(level) {
+    return level * 50;
+}
+
+export class Hackemon {
+    constructor(id, level = 5) {
+        const data = HackemonData[id];
+        this.id = id;
+        this.name = data.name;
+        this.type = data.type;
+        this.image = data.image;
+        this.baseStats = { ...data.baseStats };
+
+        this.level = level;
+        this.xp = 0;
+        this.xpToLevel = getXpToLevel(level);
+
+        // Assign random ability from pool
+        this.ability = data.abilities[Math.floor(Math.random() * data.abilities.length)];
+
+        // Assign random nature
+        const natureKeys = Object.keys(Natures);
+        this.nature = Natures[natureKeys[Math.floor(Math.random() * natureKeys.length)]];
+
+        this.recalculateStats();
+        this.hp = this.maxHp;
+
+        // Start with 3 moves, copy PP
+        const availableMoves = data.moves.map(m => ({ ...Moves[m], key: m, currentPp: Moves[m].pp })).filter(m => m);
+        this.moves = availableMoves.slice(0, 3);
+        this.learnableMoves = availableMoves.slice(3); // Can learn later
+
+        this.status = null;
+        this.statusDuration = 0;
+        this.statStages = { atk: 0, def: 0, spd: 0, acc: 0, eva: 0 };
+    }
+
+    recalculateStats() {
+        const scale = (base) => Math.floor(base * (this.level / 50) + 10 + this.level);
+        this.maxHp = scale(this.baseStats.hp);
+        this.attack = scale(this.baseStats.attack);
+        this.defense = scale(this.baseStats.defense);
+        this.speed = scale(this.baseStats.speed);
+
+        // Apply nature modifier
+        if (this.nature) {
+            if (this.nature.boost === 'attack') this.attack = Math.floor(this.attack * 1.1);
+            if (this.nature.boost === 'defense') this.defense = Math.floor(this.defense * 1.1);
+            if (this.nature.boost === 'speed') this.speed = Math.floor(this.speed * 1.1);
+            if (this.nature.reduce === 'attack') this.attack = Math.floor(this.attack * 0.9);
+            if (this.nature.reduce === 'defense') this.defense = Math.floor(this.defense * 0.9);
+            if (this.nature.reduce === 'speed') this.speed = Math.floor(this.speed * 0.9);
+        }
+
+        // Apply ability stat modifiers
+        if (this.ability) {
+            const ab = Abilities[this.ability];
+            if (ab?.effect === 'def_boost') this.defense = Math.floor(this.defense * ab.value);
+            if (ab?.effect === 'atk_boost') this.attack = Math.floor(this.attack * ab.value);
+        }
+    }
+
+    gainXp(amount) {
+        this.xp += amount;
+        let leveledUp = false;
+        let newMoveAvailable = null;
+        let statGains = null;
+
+        while (this.xp >= this.xpToLevel) {
+            this.xp -= this.xpToLevel;
+            this.level++;
+            this.xpToLevel = getXpToLevel(this.level);
+            leveledUp = true;
+
+            // Random stat increases on level up
+            const hpGain = Math.floor(Math.random() * 3) + 1; // 1-3
+            const atkGain = Math.floor(Math.random() * 3) + 1;
+            const defGain = Math.floor(Math.random() * 3) + 1;
+            const spAtkGain = Math.floor(Math.random() * 3) + 1;
+            const spDefGain = Math.floor(Math.random() * 3) + 1;
+            const spdGain = Math.floor(Math.random() * 3) + 1;
+
+            this.baseStats.hp += hpGain;
+            this.baseStats.attack += atkGain;
+            this.baseStats.defense += defGain;
+            this.baseStats.speed += spdGain;
+
+            statGains = { hp: hpGain, atk: atkGain, def: defGain, spAtk: spAtkGain, spDef: spDefGain, spd: spdGain };
+
+            const oldMaxHp = this.maxHp;
+            this.recalculateStats();
+
+            // Full HP recovery on level up
+            this.hp = this.maxHp;
+
+            // Full PP recovery on level up
+            this.moves.forEach(move => {
+                move.currentPp = move.pp;
+            });
+
+            // Learn new move at level 10, 20, 30...
+            if (this.level % 10 === 0 && this.learnableMoves.length > 0) {
+                newMoveAvailable = this.learnableMoves.shift();
+            }
+        }
+
+        return { leveledUp, newMoveAvailable, statGains };
+    }
+
+    learnMove(move, forgetIndex = null) {
+        if (forgetIndex !== null && this.moves.length >= 4) {
+            this.moves[forgetIndex] = { ...move, currentPp: move.pp };
+        } else if (this.moves.length < 4) {
+            this.moves.push({ ...move, currentPp: move.pp });
+        }
+    }
+
+    restoreAllPp() {
+        this.moves.forEach(m => m.currentPp = m.pp);
+    }
+
+    restorePp(moveIndex, amount) {
+        if (this.moves[moveIndex]) {
+            this.moves[moveIndex].currentPp = Math.min(
+                this.moves[moveIndex].pp,
+                this.moves[moveIndex].currentPp + amount
+            );
+        }
+    }
+}
+
+// ============== HACKEMON DATA ==============
+export const HackemonData = {
+    LEE_HAK_BEOM: {
+        name: '학범몬',
+        type: Types.CHEMISTRY,
+        image: '/hackemon/학범몬.png',
+        baseStats: { hp: 90, attack: 60, defense: 60, speed: 40 },
+        moves: ['BINGE_EAT', 'TACKLE', 'KUMCHEOK', 'DIET_PLAN', 'MICRO_FUEL', 'HUG'],
+        abilities: ['THICK_FAT', 'GUTS'],
+        desc: '무거운 학켓몬'
+    },
+    KIM_SANG_WON: {
+        name: '상원몬',
+        type: Types.PHYSICS,
+        image: '/hackemon/상원몬.png',
+        baseStats: { hp: 60, attack: 80, defense: 50, speed: 70 },
+        moves: ['POOP_TERROR', 'SEXY_MAN', 'FART_TERROR', 'TERMINAL', 'FORTY_SEVEN', 'STEAL_EAT'],
+        abilities: ['HUGE_POWER', 'MOXIE'],
+        desc: '이상한 학켓몬'
+    },
+    AHN_WOOK_GAE: {
+        name: '욱개몬',
+        type: Types.ENGINEERING,
+        image: '/hackemon/욱개몬.png',
+        baseStats: { hp: 65, attack: 85, defense: 55, speed: 65 },
+        moves: ['CRUNCH', 'COLOR_BLIND', 'FACTORIAL', 'QUADRUPED', 'OREO', 'DRUM'],
+        abilities: ['ADAPTABILITY', 'INTIMIDATE'],
+        desc: '개 같은 학켓몬'
+    },
+    PARK_SANG_WOOK: {
+        name: '상욱몬',
+        type: Types.PHYSICS,
+        image: '/hackemon/상욱몬.png',
+        baseStats: { hp: 70, attack: 75, defense: 60, speed: 60 },
+        moves: ['CRUNCH', 'ARMPIT', 'NONSENSE', 'PIRATE_KING', 'YUMIKATSU', 'INJEONG_SSAM', 'CAREER_CLASS'],
+        abilities: ['GUTS', 'INTIMIDATE'],
+        desc: '해적왕을 꿈꾸는 학켓몬'
+    },
+    EOM_JI_O: {
+        name: '지오몬',
+        type: Types.CHEMISTRY,
+        image: '/hackemon/지오몬.png',
+        baseStats: { hp: 55, attack: 70, defense: 50, speed: 80 },
+        moves: ['EOM_SMELL', 'EOM_OEBA', 'TNT_DROP', 'SUCCESSFULLY', 'METEOR', 'UM'],
+        abilities: ['SPEED_BOOST', 'ADAPTABILITY'],
+        desc: '냄새나는 학켓몬'
+    },
+    JO_HAN_BI: {
+        name: '한비몬',
+        type: Types.PHYSICS,
+        image: '/hackemon/한비몬.png',
+        baseStats: { hp: 50, attack: 65, defense: 50, speed: 95 },
+        moves: ['STEALTH', 'KKAMBI', 'MINIMIZE', 'HAIR_POWDER', 'FETCH_WATER', 'CAN_THROW', 'NIGA'],
+        abilities: ['SPEED_BOOST', 'SNIPER'],
+        desc: '은신의 달인 학켓몬'
+    },
+    JUNG_JAE_SEONG: {
+        name: '재성몬',
+        type: Types.PHYSICS,
+        image: '/hackemon/재성몬.png',
+        baseStats: { hp: 65, attack: 85, defense: 50, speed: 65 },
+        moves: ['BITE', 'GESUNGJAEI', 'HEAD_SMASH', 'RABIES', 'BLANKET_STEAL', 'OVERSLEEP', 'CAN_THROW'],
+        abilities: ['MOXIE', 'GUTS'],
+        desc: '물기가 특기인 학켓몬'
+    },
+    LEE_HA_EUM: {
+        name: '하음몬',
+        type: Types.BIOLOGY,
+        image: '/hackemon/하음몬.png',
+        baseStats: { hp: 60, attack: 60, defense: 60, speed: 60 },
+        moves: ['IDLE', 'LOLI', 'MINIMIZE', 'BINGE_EAT', 'CRUTCH', 'METEOR', 'BOOK_TALK'],
+        abilities: ['IRON_WALL', 'STURDY'],
+        desc: '어린이를 좋아하는 학켓몬'
+    },
+    YANG_JUN_HYEOK: {
+        name: '준혁몬',
+        type: Types.PHYSICS,
+        image: '/hackemon/준혁몬.png',
+        baseStats: { hp: 70, attack: 65, defense: 65, speed: 55 },
+        moves: ['CLUB_APP', 'OWL_MAN', 'GONJIAM', 'CHARACTER_ED', 'RICH_BOY'],
+        abilities: ['THICK_FAT', 'STURDY'],
+        desc: '부잣집 도련님 학켓몬'
+    }
+};
+
+export function getRandomStarters(count = 3) {
+    const keys = Object.keys(HackemonData);
+    const shuffled = keys.sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, count);
+}
