@@ -497,7 +497,7 @@ function showUturnSwitchMenu(moveIndex) {
   showMenu('party');
 }
 
-function buildPartyMenu() {
+function buildPartyMenu(forceSwitch = false) {
   const menu = document.getElementById('party-menu');
   menu.innerHTML = '';
 
@@ -509,13 +509,31 @@ function buildPartyMenu() {
       if (i === gameState.battle?.activeIndex) { log('이미 싸우고 있다!'); return; }
       if (mon.hp <= 0) { log('기절한 학켓몬은 내보낼 수 없다!'); return; }
       showMenu('command');
-      await gameState.battle.switchTo(i);
-      // Re-render battle UI to update player name, HP, moves etc
-      renderBattle();
+
+      if (forceSwitch) {
+        // Force switch after player faint - directly set active index
+        const oldMon = gameState.battle.playerMon;
+        gameState.battle.activeIndex = i;
+        log(`${oldMon.name}, 돌아와! 가라, ${gameState.battle.playerMon.name}!`);
+        // Reset switched mon's stat stages
+        gameState.battle.playerMon.statStages = { atk: 0, def: 0, spd: 0, acc: 0, eva: 0 };
+        // Apply entry ability
+        gameState.battle.applyEntryAbility(gameState.battle.playerMon, gameState.battle.enemyMon);
+        updateUI();
+        // Re-render battle UI and wait for next action
+        renderBattle();
+        setTimeout(() => log(`${gameState.battle.playerMon.name}은(는) 무엇을 할까?`), 1000);
+      } else {
+        await gameState.battle.switchTo(i);
+        // Re-render battle UI to update player name, HP, moves etc
+        renderBattle();
+      }
     };
     menu.appendChild(btn);
   });
-  addBackButton(menu);
+  if (!forceSwitch) {
+    addBackButton(menu);
+  }
 }
 
 function buildBallMenu() {
@@ -1417,7 +1435,7 @@ function startWave() {
         });
       },
       onGameOver: () => setTimeout(renderGameOver, 1500),
-      onForceSwitch: () => { showMenu('party'); buildPartyMenu(); }
+      onForceSwitch: () => { showMenu('party'); buildPartyMenu(true); }
     },
     trainerData,
     gameState.lastActiveIndex
