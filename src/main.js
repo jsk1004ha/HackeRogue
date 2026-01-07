@@ -906,9 +906,23 @@ function proceedAfterReward() {
   startWave();
 }
 
-// Check if a hackemon can learn a move (same type or NORMAL type)
+// Check if a hackemon can learn a move (same type, NORMAL type, or in their original moveset)
 function canLearnMove(mon, move) {
-  return move.type === mon.type || move.type === 'normal';
+  // Check type compatibility
+  if (move.type === mon.type || move.type === 'normal') {
+    return true;
+  }
+
+  // Check if the move is in the hackemon's original moveset
+  const data = HackemonData[mon.id];
+  if (data && data.moves) {
+    const moveKey = move.key || Object.keys(Moves).find(k => Moves[k].name === move.name);
+    if (moveKey && data.moves.includes(moveKey)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 function showTMLearnScreen(tm) {
