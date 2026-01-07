@@ -134,6 +134,10 @@ export class Battle {
             this.caught = true;
             this.ended = true;
 
+            // Reset enemy stats to original (remove enemy bonuses)
+            this.enemyMon.recalculateStats();
+            this.enemyMon.hp = this.enemyMon.maxHp;
+
             if (this.playerParty.length < 6) {
                 this.playerParty.push(this.enemyMon);
                 this.callbacks.onLog(`${this.enemyMon.name}이(가) 파티에 합류했다!`);
