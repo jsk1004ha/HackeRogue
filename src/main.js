@@ -361,10 +361,10 @@ function renderBattle() {
         </div>
         
         <div class="command-menu" id="command-menu">
-          <div class="cmd-btn" id="btn-fight"><span class="arrow">▶</span>싸운다</div>
+          <div class="cmd-btn" id="btn-fight"><span class="arrow">▶</span>싸우다</div>
           <div class="cmd-btn" id="btn-ball">볼</div>
           <div class="cmd-btn" id="btn-pokemon">학켓몬</div>
-          <div class="cmd-btn" id="btn-run">도망</div>
+          <div class="cmd-btn" id="btn-run">도망치다</div>
         </div>
 
         <div class="move-menu" id="move-menu" style="display:none;"></div>

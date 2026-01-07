@@ -21,6 +21,7 @@ export class Battle {
         this.turn = 1;
         this.ended = false;
         this.caught = false;
+        this.isProcessingTurn = false;
 
         if (trainerData) {
             // Calculate average level of player party
@@ -66,6 +67,7 @@ export class Battle {
     }
 
     async switchTo(index) {
+        if (this.isProcessingTurn) return false;
         if (index === this.activeIndex || this.playerParty[index].hp <= 0) return false;
 
         const oldMon = this.playerMon;
@@ -86,6 +88,7 @@ export class Battle {
     }
 
     async useBall(ballItem) {
+        if (this.isProcessingTurn) return false;
         if (this.trainerData) {
             this.callbacks.onLog('트레이너의 학켓몬은 잡을 수 없다!');
             await this.wait(800);
@@ -158,7 +161,8 @@ export class Battle {
     }
 
     async executeTurn(moveIndex) {
-        if (this.ended) return;
+        if (this.ended || this.isProcessingTurn) return;
+        this.isProcessingTurn = true;
 
         const playerMove = this.playerMon.moves[moveIndex];
         if (!playerMove) return;
@@ -203,6 +207,7 @@ export class Battle {
         if (this.enemyMon.hp <= 0) { await this.handleEnemyFaint(); return; }
 
         this.turn++;
+        this.isProcessingTurn = false;
 
         // Show action prompt after turn ends
         await this.wait(500);
@@ -480,10 +485,12 @@ export class Battle {
             this.applyEntryAbility(this.enemyMon, this.playerMon);
             this.callbacks.onUpdateUI();
             await this.wait(1000);
+            this.isProcessingTurn = false;
             return;
         }
 
         this.ended = true;
+        this.isProcessingTurn = false;
 
         // XP to all party
         const baseXp = this.enemyMon.level * 15;
@@ -535,10 +542,12 @@ export class Battle {
 
         const alive = this.getAlivePartyMembers();
         if (alive.length > 0) {
+            this.isProcessingTurn = false;
             this.callbacks.onLog('다른 학켓몬을 선택하세요!');
             if (this.callbacks.onForceSwitch) this.callbacks.onForceSwitch();
         } else {
             this.ended = true;
+            this.isProcessingTurn = false;
             this.callbacks.onLog('눈앞이 캄캄해졌다...');
             if (this.callbacks.onGameOver) this.callbacks.onGameOver();
         }
