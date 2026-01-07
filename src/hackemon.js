@@ -311,93 +311,104 @@ export class Hackemon {
 }
 
 // ============== HACKEMON DATA ==============
+// 스탯 총합 기준: 약 250~280 (역할에 따라 변동)
 export const HackemonData = {
     LEE_HAK_BEOM: {
+        // 탱커형: 높은 HP, 높은 방어, 낮은 스피드 (무거움)
         name: '학범몬',
         type: Types.CHEMISTRY,
         image: hakbeomImg,
-        baseStats: { hp: 90, attack: 60, defense: 60, speed: 40 },
+        baseStats: { hp: 110, attack: 55, defense: 75, speed: 30 },  // 총합 270
         moves: ['BINGE_EAT', 'TACKLE', 'KUMCHEOK', 'DIET_PLAN', 'MICRO_FUEL', 'HUG'],
         abilities: ['THICK_FAT', 'GUTS'],
         desc: '무거운 학켓몬'
     },
     KIM_SANG_WON: {
+        // 물리 어태커: 높은 공격, 좋은 스피드, 평범한 내구
         name: '상원몬',
         type: Types.PHYSICS,
         image: sangwonImg,
-        baseStats: { hp: 65, attack: 80, defense: 50, speed: 70 },
+        baseStats: { hp: 70, attack: 90, defense: 45, speed: 75 },  // 총합 280
         moves: ['POOP_TERROR', 'SEXY_MAN', 'FART_TERROR', 'TERMINAL', 'FORTY_SEVEN', 'STEAL_EAT'],
         abilities: ['HUGE_POWER', 'MOXIE'],
         desc: '이상한 학켓몬'
     },
     AHN_WOOK_GAE: {
+        // 글래스 캐논: 매우 높은 공격, 낮은 방어/HP
         name: '욱개몬',
         type: Types.ENGINEERING,
         image: wookgaeImg,
-        baseStats: { hp: 55, attack: 80, defense: 45, speed: 45 },
+        baseStats: { hp: 50, attack: 95, defense: 35, speed: 70 },  // 총합 250
         moves: ['CRUNCH', 'COLOR_BLIND', 'FACTORIAL', 'QUADRUPED', 'OREO', 'DRUM'],
         abilities: ['ADAPTABILITY', 'INTIMIDATE'],
         desc: '개 같은 학켓몬'
     },
     PARK_SANG_WOOK: {
+        // 밸런스형: 고른 스탯, 해적왕 답게 약간 공격 강조
         name: '상욱몬',
         type: Types.PHYSICS,
         image: sangwookImg,
-        baseStats: { hp: 80, attack: 65, defense: 60, speed: 60 },
+        baseStats: { hp: 85, attack: 70, defense: 65, speed: 55 },  // 총합 275
         moves: ['CRUNCH', 'ARMPIT', 'NONSENSE', 'PIRATE_KING', 'YUMIKATSU', 'INJEONG_SSAM', 'CAREER_CLASS'],
         abilities: ['GUTS', 'INTIMIDATE'],
         desc: '해적왕을 꿈꾸는 학켓몬'
     },
     EOM_JI_O: {
+        // 스피드형: 높은 스피드, 좋은 공격
         name: '지오몬',
         type: Types.CHEMISTRY,
         image: jioImg,
-        baseStats: { hp: 65, attack: 70, defense: 50, speed: 80 },
+        baseStats: { hp: 60, attack: 75, defense: 45, speed: 90 },  // 총합 270
         moves: ['EOM_SMELL', 'EOM_OEBA', 'TNT_DROP', 'SUCCESSFULLY', 'METEOR', 'UM'],
         abilities: ['SPEED_BOOST', 'ADAPTABILITY'],
         desc: '냄새나는 학켓몬'
     },
     JO_HAN_BI: {
+        // 최고 스피드: 극한의 스피드, 은신 특화, 낮은 체력
         name: '한비몬',
         type: Types.PHYSICS,
         image: hanbiImg,
-        baseStats: { hp: 60, attack: 75, defense: 50, speed: 95 },
+        baseStats: { hp: 50, attack: 70, defense: 40, speed: 110 },  // 총합 270
         moves: ['STEALTH', 'KKAMBI', 'MINIMIZE', 'HAIR_POWDER', 'FETCH_WATER', 'CAN_THROW', 'NIGA'],
         abilities: ['SPEED_BOOST', 'SNIPER'],
         desc: '은신의 달인 학켓몬'
     },
     JUNG_JAE_SEONG: {
+        // 파워형: 최고 공격, 좋은 HP, 평범한 방어/스피드
         name: '재성몬',
         type: Types.PHYSICS,
         image: jaeseongImg,
-        baseStats: { hp: 75, attack: 85, defense: 50, speed: 65 },
+        baseStats: { hp: 80, attack: 100, defense: 45, speed: 55 },  // 총합 280
         moves: ['BITE', 'GESUNGJAEI', 'HEAD_SMASH', 'RABIES', 'BLANKET_STEAL', 'OVERSLEEP', 'CAN_THROW'],
         abilities: ['MOXIE', 'GUTS'],
         desc: '물기가 특기인 학켓몬'
     },
     LEE_HA_EUM: {
+        // 방어형: 높은 방어, 옹골참 특성과 시너지
         name: '하음몬',
         type: Types.BIOLOGY,
         image: haeumImg,
-        baseStats: { hp: 70, attack: 60, defense: 60, speed: 60 },
+        baseStats: { hp: 75, attack: 55, defense: 80, speed: 50 },  // 총합 260
         moves: ['IDLE', 'LOLI', 'MINIMIZE', 'BINGE_EAT', 'CRUTCH', 'METEOR', 'BOOK_TALK'],
         abilities: ['IRON_WALL', 'STURDY'],
         desc: '어린이를 좋아하는 학켓몬'
     },
     YANG_JUN_HYEOK: {
+        // 탱커형: 부잣집 도련님, 높은 HP/방어
         name: '준혁몬',
         type: Types.PHYSICS,
         image: junhyeokImg,
-        baseStats: { hp: 80, attack: 65, defense: 65, speed: 55 },
+        baseStats: { hp: 95, attack: 60, defense: 70, speed: 45 },  // 총합 270
         moves: ['CLUB_APP', 'OWL_MAN', 'GONJIAM', 'CHARACTER_ED', 'RICH_BOY'],
         abilities: ['THICK_FAT', 'STURDY'],
         desc: '부잣집 도련님 학켓몬'
     },
     KIM_YUN_HO: {
+        // 어린이형: 낮은 기본 스탯, 높은 스피드, 성장 잠재력
         name: '윤호몬',
         type: Types.MATH,
         image: yunhoImg,
-        baseStats: { hp: 55, attack: 60, defense: 40, speed: 80 },
+        baseStats: { hp: 45, attack: 50, defense: 35, speed: 95 },  // 총합 225 (약체지만 스피드 빠름)
         moves: ['TEN_YEAR_POWER', 'LICK', 'EARLY_GRAD', 'YOUNGJO_BEST', 'ENYO_EAT'],
         abilities: ['SPEED_BOOST', 'ADAPTABILITY'],
         desc: '매우 어린 학켓몬'
