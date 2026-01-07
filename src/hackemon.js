@@ -8,6 +8,7 @@ import hanbiImg from './assets/hackemon/한비몬.png';
 import jaeseongImg from './assets/hackemon/재성몬.png';
 import haeumImg from './assets/hackemon/하음몬.png';
 import junhyeokImg from './assets/hackemon/준혁몬.png';
+import yunhoImg from './assets/hackemon/윤호몬.png'; // TODO: Add image
 
 export const Types = {
     PHYSICS: 'physics',
@@ -153,7 +154,14 @@ export const Moves = {
     OWL_MAN: { name: '부엉남', type: Types.PHYSICS, power: 70, accuracy: 90, pp: 15, desc: '부엉이의 힘.' },
     GONJIAM: { name: '곤지암 사진 보여주기', type: Types.NORMAL, power: 0, accuracy: 90, pp: 15, effect: 'stun', desc: '무서워서 기절!' },
     CHARACTER_ED: { name: '인성교육받기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 10, effect: 'heal', desc: 'HP 50% 회복.' },
-    RICH_BOY: { name: '부잣집 도련님', type: Types.NORMAL, power: 0, accuracy: 100, pp: 5, effect: 'money', desc: '돈을 2배 획득.' }
+    RICH_BOY: { name: '부잣집 도련님', type: Types.NORMAL, power: 0, accuracy: 100, pp: 5, effect: 'money', desc: '돈을 2배 획득.' },
+
+    // 10. Yun-ho (Math)
+    TEN_YEAR_POWER: { name: '10년생의 힘', type: Types.MATH, power: 0, accuracy: 100, pp: 20, effect: 'buff_all', desc: '어린 에너지로 모든 능력치 상승!' },
+    LICK: { name: '핥기', type: Types.MATH, power: 30, accuracy: 100, pp: 30, effect: 'stun', desc: '핥아서 기절시킨다. (30%)' },
+    YOUNGJO_BEST: { name: '영조가 제일 좋아요', type: Types.NORMAL, power: 55, accuracy: 100, pp: 25, desc: '영조에 대한 사랑을 담은 공격.' },
+    ENYO_EAT: { name: '엔요 먹기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 10, effect: 'heal_30', desc: 'HP의 30%를 회복한다.' },
+    EARLY_GRAD: { name: '조기 졸업', type: Types.NORMAL, power: 50, accuracy: 100, pp: 3, effect: 'uturn', desc: '공격 후 교체한다.' }
 };
 
 // Get all learnable moves for a hackemon type
@@ -377,6 +385,15 @@ export const HackemonData = {
         moves: ['CLUB_APP', 'OWL_MAN', 'GONJIAM', 'CHARACTER_ED', 'RICH_BOY'],
         abilities: ['THICK_FAT', 'STURDY'],
         desc: '부잣집 도련님 학켓몬'
+    },
+    KIM_YUN_HO: {
+        name: '윤호몬',
+        type: Types.MATH,
+        image: yunhoImg,
+        baseStats: { hp: 45, attack: 50, defense: 40, speed: 80 },
+        moves: ['TEN_YEAR_POWER', 'LICK', 'EARLY_GRAD', 'YOUNGJO_BEST', 'ENYO_EAT'],
+        abilities: ['SPEED_BOOST', 'ADAPTABILITY'],
+        desc: '매우 어린 학켓몬'
     }
 };
 

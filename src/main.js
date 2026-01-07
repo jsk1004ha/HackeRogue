@@ -93,6 +93,9 @@ function autoSave() {
     // Save enemy data to persist across sessions
     cachedEnemy: gameState.cachedEnemy,
     cachedEnemyWave: gameState.cachedEnemyWave,
+    // Save rewards cache to persist across sessions
+    cachedRewards: gameState.cachedRewards,
+    cachedRewardsWave: gameState.cachedRewardsWave,
     // Save wave completion status
     waveCompleted: gameState.waveCompleted || false
   };
@@ -140,6 +143,9 @@ function loadGame() {
       // Restore enemy cache for consistent enemy on load
       cachedEnemy: data.cachedEnemy,
       cachedEnemyWave: data.cachedEnemyWave,
+      // Restore rewards cache for consistent rewards on load
+      cachedRewards: data.cachedRewards,
+      cachedRewardsWave: data.cachedRewardsWave,
       // Restore wave completion status
       waveCompleted: data.waveCompleted || false
     };
@@ -435,6 +441,16 @@ function buildMoveMenu() {
     btn.onclick = async () => {
       if (move.currentPp <= 0) { log('PP가 없다!'); return; }
       hideTooltip();
+
+      // Check if this is a U-turn move
+      if (move.effect === 'uturn') {
+        const alive = gameState.party.filter((m, idx) => m.hp > 0 && idx !== gameState.battle.activeIndex);
+        if (alive.length > 0) {
+          showUturnSwitchMenu(i);
+          return;
+        }
+      }
+
       showMenu('command');
       await gameState.battle.executeTurn(i);
     };
@@ -444,6 +460,36 @@ function buildMoveMenu() {
   });
 
   addBackButton(menu);
+}
+
+function showUturnSwitchMenu(moveIndex) {
+  log('교체할 학켓몬을 선택하세요!');
+
+  const menu = document.getElementById('party-menu');
+  menu.innerHTML = '';
+
+  gameState.party.forEach((mon, i) => {
+    const btn = document.createElement('div');
+    btn.className = `party-btn ${mon.hp <= 0 ? 'fainted' : ''} ${i === gameState.battle?.activeIndex ? 'active' : ''}`;
+    btn.innerHTML = `<span>${mon.name} Lv.${mon.level}</span><span class="party-hp">${mon.hp}/${mon.maxHp}</span>`;
+    btn.onclick = async () => {
+      if (i === gameState.battle?.activeIndex) { log('현재 학켓몬은 선택할 수 없다!'); return; }
+      if (mon.hp <= 0) { log('기절한 학켓몬은 선택할 수 없다!'); return; }
+      showMenu('command');
+      await gameState.battle.executeUturnTurn(moveIndex, i);
+      renderBattle();
+    };
+    menu.appendChild(btn);
+  });
+
+  // Back button to cancel
+  const backBtn = document.createElement('div');
+  backBtn.className = 'move-btn back-btn';
+  backBtn.innerHTML = '<span>← 취소</span>';
+  backBtn.onclick = () => showMenu('move');
+  menu.appendChild(backBtn);
+
+  showMenu('party');
 }
 
 function buildPartyMenu() {
@@ -705,8 +751,8 @@ function renderRewardShop(newMoves = []) {
   const shopItems = generateShopItems(gameState.wave);
   const rerollCost = getRerollCost(gameState.wave);
 
-  // Heal party on boss
-  if (isBoss) {
+  // Heal party on boss or trainer wave
+  if (isBoss || isTrainerWave(gameState.wave)) {
     gameState.party.forEach(mon => {
       mon.hp = mon.maxHp;
       mon.status = null;

@@ -22,6 +22,7 @@ export class Battle {
         this.ended = false;
         this.caught = false;
         this.isProcessingTurn = false;
+        this.pendingUturnSwitch = null; // Index of mon to switch to after U-turn attack
 
         if (trainerData) {
             // Calculate average level of player party
@@ -212,6 +213,94 @@ export class Battle {
         // Show action prompt after turn ends
         await this.wait(500);
         this.callbacks.onLog(`${this.playerMon.name}은(는) 무엇을 할까?`);
+    }
+
+    // Execute turn with U-turn (switch after attack)
+    async executeUturnTurn(moveIndex, switchToIndex) {
+        if (this.ended || this.isProcessingTurn) return;
+        this.isProcessingTurn = true;
+        this.pendingUturnSwitch = switchToIndex;
+
+        const playerMove = this.playerMon.moves[moveIndex];
+        if (!playerMove) return;
+
+        if (playerMove.currentPp <= 0) {
+            this.callbacks.onLog('PP가 없어서 기술을 쓸 수 없다!');
+            this.isProcessingTurn = false;
+            return;
+        }
+
+        const playerStunned = this.processStartTurnStatus(this.playerMon);
+        const enemyMove = this.enemyMon.moves[Math.floor(Math.random() * this.enemyMon.moves.length)];
+
+        let playerSpeed = this.playerMon.speed;
+        let enemySpeed = this.enemyMon.speed;
+        if (this.playerMon.statStages.spd > 0) playerSpeed *= 1.5;
+        if (this.enemyMon.statStages.spd > 0) enemySpeed *= 1.5;
+
+        const playerFirst = playerSpeed >= enemySpeed;
+
+        if (playerFirst) {
+            // Player attacks first -> switch -> enemy attacks new mon
+            if (!playerStunned) await this.performAttack(this.playerMon, this.enemyMon, playerMove, moveIndex);
+            if (this.enemyMon.hp <= 0) { await this.handleEnemyFaint(); return; }
+
+            // U-turn switch before enemy attacks
+            await this.performUturnSwitch();
+
+            const enemyStunned = this.processStartTurnStatus(this.enemyMon);
+            if (!enemyStunned) await this.performAttack(this.enemyMon, this.playerMon, enemyMove, -1);
+            if (this.playerMon.hp <= 0) { await this.handlePlayerFaint(); return; }
+        } else {
+            // Enemy attacks first -> player attacks -> switch
+            const enemyStunned = this.processStartTurnStatus(this.enemyMon);
+            if (!enemyStunned) await this.performAttack(this.enemyMon, this.playerMon, enemyMove, -1);
+            if (this.playerMon.hp <= 0) { await this.handlePlayerFaint(); return; }
+
+            if (!playerStunned) await this.performAttack(this.playerMon, this.enemyMon, playerMove, moveIndex);
+            if (this.enemyMon.hp <= 0) { await this.handleEnemyFaint(); return; }
+
+            // U-turn switch after player attacks
+            await this.performUturnSwitch();
+        }
+
+        await this.processEndTurn(this.playerMon);
+        if (this.playerMon.hp <= 0) { await this.handlePlayerFaint(); return; }
+
+        await this.processEndTurn(this.enemyMon);
+        if (this.enemyMon.hp <= 0) { await this.handleEnemyFaint(); return; }
+
+        this.turn++;
+        this.isProcessingTurn = false;
+        this.pendingUturnSwitch = null;
+
+        await this.wait(500);
+        this.callbacks.onLog(`${this.playerMon.name}은(는) 무엇을 할까?`);
+    }
+
+    async performUturnSwitch() {
+        if (this.pendingUturnSwitch === null) return;
+        if (this.pendingUturnSwitch === this.activeIndex) return;
+        if (this.playerParty[this.pendingUturnSwitch].hp <= 0) return;
+
+        const oldMon = this.playerMon;
+        this.activeIndex = this.pendingUturnSwitch;
+
+        // Update UI first so image changes immediately
+        this.callbacks.onUpdateUI();
+        if (this.callbacks.onUturnSwitch) {
+            this.callbacks.onUturnSwitch();
+        }
+
+        this.callbacks.onLog(`${oldMon.name}, 돌아와! 가라, ${this.playerMon.name}!`);
+        await this.wait(500);
+
+        this.playerMon.statStages = { atk: 0, def: 0, spd: 0, acc: 0, eva: 0 };
+        this.applyEntryAbility(this.playerMon, this.enemyMon);
+        this.callbacks.onUpdateUI();
+        await this.wait(500);
+
+        this.pendingUturnSwitch = null;
     }
 
     async enemyTurn() {
@@ -438,6 +527,10 @@ export class Battle {
         } else if (move.effect === 'money') {
             this.gameState.nextMoneyMultiplier = 2;
             this.callbacks.onLog('다음 승리 시 돈 2배!');
+        } else if (move.effect === 'heal_30') {
+            const heal = Math.floor(attacker.maxHp * 0.3);
+            attacker.hp = Math.min(attacker.maxHp, attacker.hp + heal);
+            this.callbacks.onLog(`${attacker.name}의 체력이 회복되었다! (+${heal})`);
         }
         this.callbacks.onUpdateUI();
         await this.wait(800);
