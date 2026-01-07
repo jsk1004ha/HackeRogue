@@ -1137,16 +1137,16 @@ function applyEnemyBonuses(enemyMon, wave) {
   let hpMultiplier = 1;
 
   // Wave-based HP scaling
-  hpMultiplier += wave * 0.015;
+  hpMultiplier += wave * 0.012;
 
   // Level-based HP scaling (kicks in hard after level 40)
   if (level > 40) {
-    hpMultiplier += (level - 40) * 0.025;
+    hpMultiplier += (level - 40) * 0.02;
   }
 
   // Boss wave extra HP
   if (isBossWave(wave)) {
-    hpMultiplier += 0.4;
+    hpMultiplier += 0.35;
   }
 
   // Apply HP multiplier
