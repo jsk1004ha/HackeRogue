@@ -1129,8 +1129,8 @@ function applyEnemyBonuses(enemyMon, wave) {
   // 1. Bonus stats per level (cumulative)
   // +1 to all stats per 5 levels
   const statBonusPerLevel = Math.floor(level / 5);
-  enemyMon.attack += statBonusPerLevel * 2;
-  enemyMon.defense += statBonusPerLevel * 2;
+  enemyMon.attack += statBonusPerLevel * 1.7;
+  enemyMon.defense += statBonusPerLevel * 1.7;
   enemyMon.speed += statBonusPerLevel;
 
   // 2. HP scaling based on wave (reaches 2x+ at level 40+)
@@ -1194,7 +1194,7 @@ function startWave() {
       let waveScaling = 0;
       const wave = gameState.wave;
       if (wave <= 30) {
-        waveScaling = Math.floor(wave * 0.1);
+        waveScaling = Math.floor(wave * 0.07);
       } else if (wave <= 60) {
         waveScaling = 7 + Math.floor((wave - 30) * 0.18); // ~1 per 7 waves
       } else if (wave <= 100) {
