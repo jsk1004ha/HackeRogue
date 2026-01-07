@@ -911,7 +911,7 @@ function renderRewardShop(newMoves = []) {
         // Use Item
         let msg = '';
         if (selectedItem.effect) {
-          msg = selectedItem.effect(mon);
+          msg = selectedItem.effect(mon, gameState.wave);
         } else if (selectedItem.type === ItemTypes.PP) {
           // Restore PP logic
           if (selectedItem.allMoves) {
@@ -1235,7 +1235,7 @@ function startWave() {
       // If player is high level, enemies scale faster
       const levelCatchUp = maxPlayerLevel > 40 ? Math.floor((maxPlayerLevel - 40) * 0.15) : 0;
 
-      const levelVariance = Math.floor(Math.random() * 4) - 1; // -1 to +2
+      const levelVariance = Math.floor(Math.random() * 4); // 0 to +2
       let baseLevel = Math.max(1, avgLevel + waveScaling + levelCatchUp + levelVariance);
 
       // Boss wave: max player level * 1.15~1.35 (increased from 1.10~1.25)

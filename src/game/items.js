@@ -87,29 +87,32 @@ export const Items = {
     // Stat Boost Items
     PROTEIN: {
         id: 'PROTEIN', name: '프로틴', type: ItemTypes.STAT,
-        desc: '공격력 영구 +10', price: 400, icon: '⬆️',
-        effect: (hackemon) => {
-            hackemon.baseStats.attack += 5;
+        desc: '공격력 영구 +5 (80웨이브 이후 +10)', price: 400, icon: '⬆️',
+        effect: (hackemon, wave = 1) => {
+            const boost = wave >= 80 ? 10 : 5;
+            hackemon.baseStats.attack += boost;
             hackemon.recalculateStats();
-            return `${hackemon.name}의 공격력이 올랐다!`;
+            return `${hackemon.name}의 공격력이 ${boost} 올랐다!`;
         }
     },
     IRON: {
         id: 'IRON', name: '철분', type: ItemTypes.STAT,
-        desc: '방어력 영구 +10', price: 400, icon: '⬆️',
-        effect: (hackemon) => {
-            hackemon.baseStats.defense += 5;
+        desc: '방어력 영구 +5 (80웨이브 이후 +10)', price: 400, icon: '⬆️',
+        effect: (hackemon, wave = 1) => {
+            const boost = wave >= 80 ? 10 : 5;
+            hackemon.baseStats.defense += boost;
             hackemon.recalculateStats();
-            return `${hackemon.name}의 방어력이 올랐다!`;
+            return `${hackemon.name}의 방어력이 ${boost} 올랐다!`;
         }
     },
     CARBOS: {
         id: 'CARBOS', name: '카르보스', type: ItemTypes.STAT,
-        desc: '스피드 영구 +10', price: 400, icon: '⬆️',
-        effect: (hackemon) => {
-            hackemon.baseStats.speed += 5;
+        desc: '스피드 영구 +5 (80웨이브 이후 +10)', price: 400, icon: '⬆️',
+        effect: (hackemon, wave = 1) => {
+            const boost = wave >= 80 ? 10 : 5;
+            hackemon.baseStats.speed += boost;
             hackemon.recalculateStats();
-            return `${hackemon.name}의 스피드가 올랐다!`;
+            return `${hackemon.name}의 스피드가 ${boost} 올랐다!`;
         }
     },
     RARE_CANDY: {
@@ -242,13 +245,13 @@ export const Trainers = {
         name: '인정쌤', party: ['KIM_SANG_WON', 'PARK_SANG_WOOK', 'JO_HAN_BI', 'YANG_JUN_HYEOK'], levelBonus: 20
     },
     WAVE_140: {
-        name: '일규쌤', party: ['LEE_HAK_BEOM', 'EOM_JI_O', 'LEE_HA_EUM', 'AHN_WOOK_GAE'], levelBonus: 23
+        name: '일규쌤', party: ['LEE_HAK_BEOM', 'EOM_JI_O', 'LEE_HA_EUM', 'AHN_WOOK_GAE'], levelBonus: 25
     },
     WAVE_170: {
-        name: '현준쌤', party: ['AHN_WOOK_GAE', 'JUNG_JAE_SEONG', 'YANG_JUN_HYEOK', 'KIM_SANG_WON', 'PARK_SANG_WOOK'], levelBonus: 27
+        name: '현준쌤', party: ['AHN_WOOK_GAE', 'JUNG_JAE_SEONG', 'YANG_JUN_HYEOK', 'KIM_SANG_WON', 'PARK_SANG_WOOK'], levelBonus: 30
     },
     WAVE_200: {
-        name: '경민쌤', party: ['LEE_HAK_BEOM', 'KIM_SANG_WON', 'AHN_WOOK_GAE', 'EOM_JI_O', 'JUNG_JAE_SEONG', 'YANG_JUN_HYEOK'], levelBonus: 30, isFinalBoss: true
+        name: '경민쌤', party: ['LEE_HAK_BEOM', 'KIM_SANG_WON', 'AHN_WOOK_GAE', 'EOM_JI_O', 'JUNG_JAE_SEONG', 'YANG_JUN_HYEOK'], levelBonus: 40, isFinalBoss: true
     }
 };
 
