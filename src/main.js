@@ -1155,6 +1155,16 @@ function applyEnemyBonuses(enemyMon, wave) {
   // Apply HP multiplier
   enemyMon.maxHp = Math.floor(enemyMon.maxHp * hpMultiplier);
   enemyMon.hp = enemyMon.maxHp;
+
+  // Early game nerf (waves 1-19): reduce all stats by 10%
+  if (wave < 20) {
+    const earlyGameMultiplier = 0.9;
+    enemyMon.attack = Math.floor(enemyMon.attack * earlyGameMultiplier);
+    enemyMon.defense = Math.floor(enemyMon.defense * earlyGameMultiplier);
+    enemyMon.speed = Math.floor(enemyMon.speed * earlyGameMultiplier);
+    enemyMon.maxHp = Math.floor(enemyMon.maxHp * earlyGameMultiplier);
+    enemyMon.hp = enemyMon.maxHp;
+  }
 }
 
 // ============== GAME FLOW ==============
