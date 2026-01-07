@@ -751,8 +751,8 @@ function renderRewardShop(newMoves = []) {
   const shopItems = generateShopItems(gameState.wave);
   const rerollCost = getRerollCost(gameState.wave);
 
-  // Heal party on boss or trainer wave
-  if (isBoss || isTrainerWave(gameState.wave)) {
+  // Heal party only on trainer wave (not regular boss waves)
+  if (isTrainerWave(gameState.wave)) {
     gameState.party.forEach(mon => {
       mon.hp = mon.maxHp;
       mon.status = null;
@@ -1143,7 +1143,15 @@ function startWave() {
       const levelVariance = Math.floor(Math.random() * 4) - 1; // -1 to +2
       let baseLevel = Math.max(1, avgLevel + waveScaling + levelVariance);
 
-      const level = isBossWave(gameState.wave) ? baseLevel + 5 : baseLevel; // Boss is +5 over scaling
+      // Boss wave: max player level * 1.10~1.25
+      let level;
+      if (isBossWave(gameState.wave)) {
+        const maxPlayerLevel = Math.max(...gameState.party.map(m => m.level));
+        const bossMultiplier = 1.10 + Math.random() * 0.15; // 1.10 to 1.25
+        level = Math.floor(maxPlayerLevel * bossMultiplier);
+      } else {
+        level = baseLevel;
+      }
       enemyMon = new Hackemon(enemyKey, level);
 
       // Cache the enemy
