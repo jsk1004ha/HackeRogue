@@ -1136,18 +1136,36 @@ function startWave() {
       const avgLevel = aliveParty.length > 0
         ? Math.floor(aliveParty.reduce((sum, m) => sum + m.level, 0) / aliveParty.length)
         : gameState.party[0]?.level || 5;
+      const maxPlayerLevel = Math.max(...gameState.party.map(m => m.level));
 
-      // Level Scaling: Average + Wave Scaling + Random Variance
-      // Wave scaling: +1 level per 10 waves (steepness increase)
-      const waveScaling = Math.floor(gameState.wave * 0.1);
+      // Dynamic Level Scaling - gets harder as game progresses
+      // Early game (wave 1-30): +1 per 10 waves
+      // Mid game (wave 31-60): +1 per 7 waves
+      // Late game (wave 61-100): +1 per 5 waves
+      // End game (wave 101+): +1 per 3 waves
+      let waveScaling = 0;
+      const wave = gameState.wave;
+      if (wave <= 30) {
+        waveScaling = Math.floor(wave * 0.1);
+      } else if (wave <= 60) {
+        waveScaling = 7 + Math.floor((wave - 30) * 0.18); // ~1 per 7 waves
+      } else if (wave <= 100) {
+        waveScaling = 12 + Math.floor((wave - 60) * 0.25); // ~1 per 5 waves
+      } else {
+        waveScaling = 20 + Math.floor((wave - 100) * 0.33); // ~1 per 3 waves
+      }
+
+      // Additional scaling based on max player level (catch up mechanic)
+      // If player is high level, enemies scale faster
+      const levelCatchUp = maxPlayerLevel > 40 ? Math.floor((maxPlayerLevel - 40) * 0.15) : 0;
+
       const levelVariance = Math.floor(Math.random() * 4) - 1; // -1 to +2
-      let baseLevel = Math.max(1, avgLevel + waveScaling + levelVariance);
+      let baseLevel = Math.max(1, avgLevel + waveScaling + levelCatchUp + levelVariance);
 
-      // Boss wave: max player level * 1.10~1.25
+      // Boss wave: max player level * 1.15~1.35 (increased from 1.10~1.25)
       let level;
       if (isBossWave(gameState.wave)) {
-        const maxPlayerLevel = Math.max(...gameState.party.map(m => m.level));
-        const bossMultiplier = 1.10 + Math.random() * 0.15; // 1.10 to 1.25
+        const bossMultiplier = 1.15 + Math.random() * 0.20; // 1.15 to 1.35
         level = Math.floor(maxPlayerLevel * bossMultiplier);
       } else {
         level = baseLevel;
