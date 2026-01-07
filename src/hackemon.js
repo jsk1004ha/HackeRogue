@@ -327,7 +327,7 @@ export const HackemonData = {
         name: '욱개몬',
         type: Types.ENGINEERING,
         image: wookgaeImg,
-        baseStats: { hp: 55, attack: 85, defense: 55, speed: 55 },
+        baseStats: { hp: 55, attack: 80, defense: 45, speed: 45 },
         moves: ['CRUNCH', 'COLOR_BLIND', 'FACTORIAL', 'QUADRUPED', 'OREO', 'DRUM'],
         abilities: ['ADAPTABILITY', 'INTIMIDATE'],
         desc: '개 같은 학켓몬'
@@ -336,7 +336,7 @@ export const HackemonData = {
         name: '상욱몬',
         type: Types.PHYSICS,
         image: sangwookImg,
-        baseStats: { hp: 70, attack: 75, defense: 60, speed: 60 },
+        baseStats: { hp: 70, attack: 65, defense: 60, speed: 60 },
         moves: ['CRUNCH', 'ARMPIT', 'NONSENSE', 'PIRATE_KING', 'YUMIKATSU', 'INJEONG_SSAM', 'CAREER_CLASS'],
         abilities: ['GUTS', 'INTIMIDATE'],
         desc: '해적왕을 꿈꾸는 학켓몬'
