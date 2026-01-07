@@ -161,7 +161,7 @@ export function generateTM(moveKey) {
 export const RewardPools = {
     COMMON: ['POTION', 'POKEBALL', 'PP_AID'],
     UNCOMMON: ['SUPER_POTION', 'GREAT_BALL', 'PROTEIN', 'IRON', 'CARBOS', 'PP_MAX'],
-    RARE: ['HYPER_POTION', 'ULTRA_BALL', 'ELIXIR', 'FULL_HEAL'],
+    RARE: ['HYPER_POTION', 'ULTRA_BALL', 'ELIXIR', 'REVIVE', 'FULL_HEAL'],
     BOSS: ['RARE_CANDY', 'MAX_ELIXIR', 'REVIVE', 'ULTRA_BALL']
 };
 
