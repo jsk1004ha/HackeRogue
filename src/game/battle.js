@@ -67,6 +67,24 @@ export class Battle {
         return this.getAlivePartyMembers().length > 1;
     }
 
+    // Select a move for enemy that has PP remaining
+    selectEnemyMove() {
+        const availableMoves = this.enemyMon.moves
+            .map((m, i) => ({ move: m, index: i }))
+            .filter(({ move }) => move.currentPp > 0);
+
+        if (availableMoves.length === 0) {
+            // No PP left - use Struggle (special move)
+            return {
+                move: { name: '발버둥', type: 'normal', power: 50, accuracy: 100, pp: 1, currentPp: 1, recoil: true, desc: 'PP가 없어 발버둥친다!' },
+                index: -1
+            };
+        }
+
+        const selected = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+        return { move: selected.move, index: selected.index };
+    }
+
     async switchTo(index) {
         if (this.isProcessingTurn) return false;
         if (index === this.activeIndex || this.playerParty[index].hp <= 0) return false;
@@ -138,6 +156,9 @@ export class Battle {
             this.enemyMon.recalculateStats();
             this.enemyMon.hp = this.enemyMon.maxHp;
 
+            // Restore PP to normal (enemy had 2x consumption)
+            this.enemyMon.restoreAllPp();
+
             if (this.playerParty.length < 6) {
                 this.playerParty.push(this.enemyMon);
                 this.callbacks.onLog(`${this.enemyMon.name}이(가) 파티에 합류했다!`);
@@ -179,7 +200,9 @@ export class Battle {
         }
 
         const playerStunned = this.processStartTurnStatus(this.playerMon);
-        const enemyMove = this.enemyMon.moves[Math.floor(Math.random() * this.enemyMon.moves.length)];
+        const enemyMoveResult = this.selectEnemyMove();
+        const enemyMove = enemyMoveResult.move;
+        const enemyMoveIndex = enemyMoveResult.index;
 
         // Speed check with ability
         let playerSpeed = this.playerMon.speed;
@@ -194,11 +217,11 @@ export class Battle {
             if (this.enemyMon.hp <= 0) { await this.handleEnemyFaint(); return; }
 
             const enemyStunned = this.processStartTurnStatus(this.enemyMon);
-            if (!enemyStunned) await this.performAttack(this.enemyMon, this.playerMon, enemyMove, -1);
+            if (!enemyStunned) await this.performAttack(this.enemyMon, this.playerMon, enemyMove, enemyMoveIndex);
             if (this.playerMon.hp <= 0) { await this.handlePlayerFaint(); return; }
         } else {
             const enemyStunned = this.processStartTurnStatus(this.enemyMon);
-            if (!enemyStunned) await this.performAttack(this.enemyMon, this.playerMon, enemyMove, -1);
+            if (!enemyStunned) await this.performAttack(this.enemyMon, this.playerMon, enemyMove, enemyMoveIndex);
             if (this.playerMon.hp <= 0) { await this.handlePlayerFaint(); return; }
 
             if (!playerStunned) await this.performAttack(this.playerMon, this.enemyMon, playerMove, moveIndex);
@@ -235,7 +258,9 @@ export class Battle {
         }
 
         const playerStunned = this.processStartTurnStatus(this.playerMon);
-        const enemyMove = this.enemyMon.moves[Math.floor(Math.random() * this.enemyMon.moves.length)];
+        const enemyMoveResult = this.selectEnemyMove();
+        const enemyMove = enemyMoveResult.move;
+        const enemyMoveIndex = enemyMoveResult.index;
 
         let playerSpeed = this.playerMon.speed;
         let enemySpeed = this.enemyMon.speed;
@@ -253,12 +278,12 @@ export class Battle {
             await this.performUturnSwitch();
 
             const enemyStunned = this.processStartTurnStatus(this.enemyMon);
-            if (!enemyStunned) await this.performAttack(this.enemyMon, this.playerMon, enemyMove, -1);
+            if (!enemyStunned) await this.performAttack(this.enemyMon, this.playerMon, enemyMove, enemyMoveIndex);
             if (this.playerMon.hp <= 0) { await this.handlePlayerFaint(); return; }
         } else {
             // Enemy attacks first -> player attacks -> switch
             const enemyStunned = this.processStartTurnStatus(this.enemyMon);
-            if (!enemyStunned) await this.performAttack(this.enemyMon, this.playerMon, enemyMove, -1);
+            if (!enemyStunned) await this.performAttack(this.enemyMon, this.playerMon, enemyMove, enemyMoveIndex);
             if (this.playerMon.hp <= 0) { await this.handlePlayerFaint(); return; }
 
             if (!playerStunned) await this.performAttack(this.playerMon, this.enemyMon, playerMove, moveIndex);
@@ -308,11 +333,13 @@ export class Battle {
     }
 
     async enemyTurn() {
-        const enemyMove = this.enemyMon.moves[Math.floor(Math.random() * this.enemyMon.moves.length)];
+        const enemyMoveResult = this.selectEnemyMove();
+        const enemyMove = enemyMoveResult.move;
+        const enemyMoveIndex = enemyMoveResult.index;
         const enemyStunned = this.processStartTurnStatus(this.enemyMon);
 
         if (!enemyStunned) {
-            await this.performAttack(this.enemyMon, this.playerMon, enemyMove, -1);
+            await this.performAttack(this.enemyMon, this.playerMon, enemyMove, enemyMoveIndex);
         }
 
         if (this.playerMon.hp <= 0) await this.handlePlayerFaint();
@@ -358,9 +385,15 @@ export class Battle {
     }
 
     async performAttack(attacker, defender, move, moveIndex) {
-        // Consume PP (only for player)
-        if (moveIndex >= 0 && attacker === this.playerMon) {
-            attacker.moves[moveIndex].currentPp--;
+        // Consume PP
+        if (moveIndex >= 0) {
+            if (attacker === this.playerMon) {
+                // Player: normal PP consumption
+                attacker.moves[moveIndex].currentPp--;
+            } else {
+                // Enemy: 2x PP consumption
+                attacker.moves[moveIndex].currentPp = Math.max(0, attacker.moves[moveIndex].currentPp - 2);
+            }
         }
 
         this.callbacks.onLog(`${attacker.name}의 ${move.name}!`);
