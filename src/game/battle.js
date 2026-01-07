@@ -210,6 +210,14 @@ export class Battle {
         if (this.playerMon.statStages.spd > 0) playerSpeed *= 1.5;
         if (this.enemyMon.statStages.spd > 0) enemySpeed *= 1.5;
 
+        // Crisis Speed ability (Maknae Power) - HP 50% 이하시 스피드 +50%
+        if (this.playerMon.ability === 'MAKNAE_POWER' && this.playerMon.hp <= this.playerMon.maxHp * 0.5) {
+            playerSpeed *= Abilities[this.playerMon.ability].value;
+        }
+        if (this.enemyMon.ability === 'MAKNAE_POWER' && this.enemyMon.hp <= this.enemyMon.maxHp * 0.5) {
+            enemySpeed *= Abilities[this.enemyMon.ability].value;
+        }
+
         const playerFirst = playerSpeed >= enemySpeed;
 
         if (playerFirst) {
@@ -224,7 +232,14 @@ export class Battle {
             if (!enemyStunned) await this.performAttack(this.enemyMon, this.playerMon, enemyMove, enemyMoveIndex);
             if (this.playerMon.hp <= 0) { await this.handlePlayerFaint(); return; }
 
-            if (!playerStunned) await this.performAttack(this.playerMon, this.enemyMon, playerMove, moveIndex);
+            // Re-check player stun status after enemy attack (in case player got stunned this turn)
+            const playerNowStunned = this.playerMon.status === 'stun';
+            if (playerNowStunned) {
+                this.callbacks.onLog(`${this.playerMon.name}은(는) 기절하여 움직일 수 없다!`);
+                this.playerMon.status = null;
+            } else if (!playerStunned) {
+                await this.performAttack(this.playerMon, this.enemyMon, playerMove, moveIndex);
+            }
             if (this.enemyMon.hp <= 0) { await this.handleEnemyFaint(); return; }
         }
 
@@ -267,6 +282,14 @@ export class Battle {
         if (this.playerMon.statStages.spd > 0) playerSpeed *= 1.5;
         if (this.enemyMon.statStages.spd > 0) enemySpeed *= 1.5;
 
+        // Crisis Speed ability (Maknae Power) - HP 50% 이하시 스피드 +50%
+        if (this.playerMon.ability === 'MAKNAE_POWER' && this.playerMon.hp <= this.playerMon.maxHp * 0.5) {
+            playerSpeed *= Abilities[this.playerMon.ability].value;
+        }
+        if (this.enemyMon.ability === 'MAKNAE_POWER' && this.enemyMon.hp <= this.enemyMon.maxHp * 0.5) {
+            enemySpeed *= Abilities[this.enemyMon.ability].value;
+        }
+
         const playerFirst = playerSpeed >= enemySpeed;
 
         if (playerFirst) {
@@ -286,7 +309,14 @@ export class Battle {
             if (!enemyStunned) await this.performAttack(this.enemyMon, this.playerMon, enemyMove, enemyMoveIndex);
             if (this.playerMon.hp <= 0) { await this.handlePlayerFaint(); return; }
 
-            if (!playerStunned) await this.performAttack(this.playerMon, this.enemyMon, playerMove, moveIndex);
+            // Re-check player stun status after enemy attack (in case player got stunned this turn)
+            const playerNowStunned = this.playerMon.status === 'stun';
+            if (playerNowStunned) {
+                this.callbacks.onLog(`${this.playerMon.name}은(는) 기절하여 움직일 수 없다!`);
+                this.playerMon.status = null;
+            } else if (!playerStunned) {
+                await this.performAttack(this.playerMon, this.enemyMon, playerMove, moveIndex);
+            }
             if (this.enemyMon.hp <= 0) { await this.handleEnemyFaint(); return; }
 
             // U-turn switch after player attacks
@@ -459,6 +489,11 @@ export class Battle {
         // Guts ability
         if (attacker.ability === 'GUTS' && attacker.status) {
             atkStat *= 1.5;
+        }
+
+        // Crisis Attack ability (Luffy Power) - HP 30% 이하시 공격 +80%
+        if (attacker.ability === 'LUFFY_POWER' && attacker.hp <= attacker.maxHp * 0.3) {
+            atkStat *= Abilities[attacker.ability].value;
         }
 
         // Defense stat

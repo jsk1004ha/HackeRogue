@@ -9,6 +9,7 @@ import jaeseongImg from './assets/hackemon/재성몬.png';
 import haeumImg from './assets/hackemon/하음몬.png';
 import junhyeokImg from './assets/hackemon/준혁몬.png';
 import yunhoImg from './assets/hackemon/윤호몬.png'; // TODO: Add image
+import jiminImg from './assets/hackemon/지민몬.png'; // TODO: Add image
 
 export const Types = {
     PHYSICS: 'physics',
@@ -35,7 +36,7 @@ export const TypeChart = {
     // 수학>공학
     [Types.MATH]: { strong: [Types.ENGINEERING], weak: [Types.INFO, Types.EARTH] },
     // 정보>수학
-    [Types.INFO]: { strong: [Types.MATH], weak: [] },
+    [Types.INFO]: { strong: [Types.MATH], weak: [Types.BIOLOGY] },
     [Types.NORMAL]: { strong: [], weak: [] }
 };
 
@@ -61,7 +62,11 @@ export const Abilities = {
     GUTS: { id: 'GUTS', name: '남자 중의 남자', desc: '상태이상 시 공격 +50%', effect: 'guts' },
     MOXIE: { id: 'MOXIE', name: '자기과신', desc: '적 처치 시 공격 +1', effect: 'moxie' },
     STURDY: { id: 'STURDY', name: '옹골참', desc: '일격 기절 방지 (HP 1)', effect: 'sturdy' },
-    SNIPER: { id: 'SNIPER', name: '스나이퍼', desc: '급소 데미지 2.25배', effect: 'crit_boost', value: 2.25 }
+    SNIPER: { id: 'SNIPER', name: '스나이퍼', desc: '급소 데미지 2.25배', effect: 'crit_boost', value: 2.25 },
+    // 윤호몬 고유 특성
+    MAKNAE_POWER: { id: 'MAKNAE_POWER', name: '막내의 힘', desc: 'HP 50% 이하시 스피드 +50%', effect: 'crisis_speed', value: 1.5 },
+    // 지민몬 고유 특성
+    LUFFY_POWER: { id: 'LUFFY_POWER', name: '루피의 힘', desc: 'HP 30% 이하시 공격 +80%', effect: 'crisis_attack', value: 1.8 }
 };
 
 // ============== NATURES (25 types) ==============
@@ -168,7 +173,14 @@ export const Moves = {
     LICK: { name: '핥기', type: Types.MATH, power: 30, accuracy: 100, pp: 30, effect: 'stun', desc: '핥아서 기절시킨다. (30%)' },
     YOUNGJO_BEST: { name: '영조가 제일 좋아요', type: Types.NORMAL, power: 55, accuracy: 100, pp: 25, desc: '영조에 대한 사랑을 담은 공격.' },
     ENYO_EAT: { name: '엔요 먹기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 10, effect: 'heal_30', desc: 'HP의 30%를 회복한다.' },
-    EARLY_GRAD: { name: '조기 졸업', type: Types.NORMAL, power: 50, accuracy: 100, pp: 3, effect: 'uturn', desc: '공격 후 교체한다.' }
+    EARLY_GRAD: { name: '조기 졸업', type: Types.NORMAL, power: 50, accuracy: 100, pp: 3, effect: 'uturn', desc: '공격 후 교체한다.' },
+
+    // 11. 지민몬 (Info)
+    MY_YOON: { name: '아 내 윤석열', type: Types.INFO, power: 80, accuracy: 90, pp: 10, desc: '정보의 힘으로 강타!' },
+    IS_IT_SOLVED: { name: '그거 푼거야?', type: Types.CHEMISTRY, power: 70, accuracy: 95, pp: 15, desc: '화학의 힘으로 공격.' },
+    STOP_EATING: { name: '그만 처먹어', type: Types.NORMAL, power: 0, accuracy: 85, pp: 15, effect: 'stun', desc: '상대를 기절시킨다.' },
+    BE_LATE: { name: '지각하기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 10, effect: 'buff_spd', desc: '늦게 오는 것으로 스피드 상승.' },
+    TECH_NOOB_POWER: { name: '컴맹의 힘', type: Types.INFO, power: 90, accuracy: 80, pp: 5, highCrit: true, desc: '컴맹이라 역으로 강해진다! 급소율↑' }
 };
 
 // Get all learnable moves for a hackemon type
@@ -410,8 +422,18 @@ export const HackemonData = {
         image: yunhoImg,
         baseStats: { hp: 45, attack: 50, defense: 35, speed: 95 },  // 총합 225 (약체지만 스피드 빠름)
         moves: ['TEN_YEAR_POWER', 'LICK', 'EARLY_GRAD', 'YOUNGJO_BEST', 'ENYO_EAT'],
-        abilities: ['SPEED_BOOST', 'ADAPTABILITY'],
+        abilities: ['MAKNAE_POWER', 'SPEED_BOOST'],
         desc: '매우 어린 학켓몬'
+    },
+    LEE_JI_MIN: {
+        // 정보형: 루피를 닮은 학켓몬, 균형 잡힌 스탯
+        name: '지민몬',
+        type: Types.INFO,
+        image: jiminImg,
+        baseStats: { hp: 75, attack: 80, defense: 55, speed: 65 },  // 총합 275
+        moves: ['MY_YOON', 'IS_IT_SOLVED', 'STOP_EATING', 'BE_LATE', 'TECH_NOOB_POWER'],
+        abilities: ['LUFFY_POWER', 'ADAPTABILITY'],
+        desc: '루피를 닮은 학켓몬'
     }
 };
 
