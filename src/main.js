@@ -1113,6 +1113,41 @@ function resetGame() {
   renderStarterSelection();
 }
 
+// ============== ENEMY STAT BONUSES ==============
+function applyEnemyBonuses(enemyMon, wave) {
+  const level = enemyMon.level;
+
+  // 1. Bonus stats per level (cumulative)
+  // +1 to all stats per 5 levels
+  const statBonusPerLevel = Math.floor(level / 5);
+  enemyMon.attack += statBonusPerLevel * 2;
+  enemyMon.defense += statBonusPerLevel * 2;
+  enemyMon.speed += statBonusPerLevel;
+
+  // 2. HP scaling based on wave (reaches 2x+ at level 40+)
+  // Formula: HP multiplier = 1 + (wave * 0.02) + (level > 40 ? (level - 40) * 0.03 : 0)
+  // At wave 50, level 40: 1 + 1.0 = 2.0x HP
+  // At wave 70, level 50: 1 + 1.4 + 0.3 = 2.7x HP
+  let hpMultiplier = 1;
+
+  // Wave-based HP scaling
+  hpMultiplier += wave * 0.02;
+
+  // Level-based HP scaling (kicks in hard after level 40)
+  if (level > 40) {
+    hpMultiplier += (level - 40) * 0.035;
+  }
+
+  // Boss wave extra HP
+  if (isBossWave(wave)) {
+    hpMultiplier += 0.6;
+  }
+
+  // Apply HP multiplier
+  enemyMon.maxHp = Math.floor(enemyMon.maxHp * hpMultiplier);
+  enemyMon.hp = enemyMon.maxHp;
+}
+
 // ============== GAME FLOW ==============
 function startWave() {
   gameState.phase = 'battle';
@@ -1123,10 +1158,14 @@ function startWave() {
   if (!trainerData) {
     // Use cached enemy if available (for save/load), otherwise generate new
     if (gameState.cachedEnemy && gameState.cachedEnemyWave === gameState.wave) {
-      // Reconstruct enemy from cache
+      // Reconstruct enemy from cache with boosted stats
       const cached = gameState.cachedEnemy;
       enemyMon = new Hackemon(cached.id, cached.level);
       enemyMon.hp = cached.hp;
+      if (cached.maxHp) enemyMon.maxHp = cached.maxHp;
+      if (cached.attack) enemyMon.attack = cached.attack;
+      if (cached.defense) enemyMon.defense = cached.defense;
+      if (cached.speed) enemyMon.speed = cached.speed;
     } else {
       const keys = Object.keys(HackemonData);
       const enemyKey = keys[Math.floor(Math.random() * keys.length)];
@@ -1172,8 +1211,19 @@ function startWave() {
       }
       enemyMon = new Hackemon(enemyKey, level);
 
-      // Cache the enemy
-      gameState.cachedEnemy = { id: enemyKey, level: level, hp: enemyMon.hp };
+      // Apply enemy stat bonuses based on level and wave
+      applyEnemyBonuses(enemyMon, gameState.wave);
+
+      // Cache the enemy with boosted stats
+      gameState.cachedEnemy = {
+        id: enemyKey,
+        level: level,
+        hp: enemyMon.hp,
+        maxHp: enemyMon.maxHp,
+        attack: enemyMon.attack,
+        defense: enemyMon.defense,
+        speed: enemyMon.speed
+      };
       gameState.cachedEnemyWave = gameState.wave;
       autoSave(); // Save newly generated enemy immediately
     }

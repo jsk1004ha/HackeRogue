@@ -318,7 +318,7 @@ export const HackemonData = {
         name: '상원몬',
         type: Types.PHYSICS,
         image: sangwonImg,
-        baseStats: { hp: 60, attack: 80, defense: 50, speed: 70 },
+        baseStats: { hp: 65, attack: 80, defense: 50, speed: 70 },
         moves: ['POOP_TERROR', 'SEXY_MAN', 'FART_TERROR', 'TERMINAL', 'FORTY_SEVEN', 'STEAL_EAT'],
         abilities: ['HUGE_POWER', 'MOXIE'],
         desc: '이상한 학켓몬'
@@ -336,7 +336,7 @@ export const HackemonData = {
         name: '상욱몬',
         type: Types.PHYSICS,
         image: sangwookImg,
-        baseStats: { hp: 70, attack: 65, defense: 60, speed: 60 },
+        baseStats: { hp: 80, attack: 65, defense: 60, speed: 60 },
         moves: ['CRUNCH', 'ARMPIT', 'NONSENSE', 'PIRATE_KING', 'YUMIKATSU', 'INJEONG_SSAM', 'CAREER_CLASS'],
         abilities: ['GUTS', 'INTIMIDATE'],
         desc: '해적왕을 꿈꾸는 학켓몬'
@@ -345,7 +345,7 @@ export const HackemonData = {
         name: '지오몬',
         type: Types.CHEMISTRY,
         image: jioImg,
-        baseStats: { hp: 55, attack: 70, defense: 50, speed: 80 },
+        baseStats: { hp: 65, attack: 70, defense: 50, speed: 80 },
         moves: ['EOM_SMELL', 'EOM_OEBA', 'TNT_DROP', 'SUCCESSFULLY', 'METEOR', 'UM'],
         abilities: ['SPEED_BOOST', 'ADAPTABILITY'],
         desc: '냄새나는 학켓몬'
@@ -354,7 +354,7 @@ export const HackemonData = {
         name: '한비몬',
         type: Types.PHYSICS,
         image: hanbiImg,
-        baseStats: { hp: 50, attack: 75, defense: 50, speed: 95 },
+        baseStats: { hp: 60, attack: 75, defense: 50, speed: 95 },
         moves: ['STEALTH', 'KKAMBI', 'MINIMIZE', 'HAIR_POWDER', 'FETCH_WATER', 'CAN_THROW', 'NIGA'],
         abilities: ['SPEED_BOOST', 'SNIPER'],
         desc: '은신의 달인 학켓몬'
@@ -363,7 +363,7 @@ export const HackemonData = {
         name: '재성몬',
         type: Types.PHYSICS,
         image: jaeseongImg,
-        baseStats: { hp: 65, attack: 85, defense: 50, speed: 65 },
+        baseStats: { hp: 75, attack: 85, defense: 50, speed: 65 },
         moves: ['BITE', 'GESUNGJAEI', 'HEAD_SMASH', 'RABIES', 'BLANKET_STEAL', 'OVERSLEEP', 'CAN_THROW'],
         abilities: ['MOXIE', 'GUTS'],
         desc: '물기가 특기인 학켓몬'
@@ -372,7 +372,7 @@ export const HackemonData = {
         name: '하음몬',
         type: Types.BIOLOGY,
         image: haeumImg,
-        baseStats: { hp: 60, attack: 60, defense: 60, speed: 60 },
+        baseStats: { hp: 70, attack: 60, defense: 60, speed: 60 },
         moves: ['IDLE', 'LOLI', 'MINIMIZE', 'BINGE_EAT', 'CRUTCH', 'METEOR', 'BOOK_TALK'],
         abilities: ['IRON_WALL', 'STURDY'],
         desc: '어린이를 좋아하는 학켓몬'
@@ -381,7 +381,7 @@ export const HackemonData = {
         name: '준혁몬',
         type: Types.PHYSICS,
         image: junhyeokImg,
-        baseStats: { hp: 70, attack: 65, defense: 65, speed: 55 },
+        baseStats: { hp: 80, attack: 65, defense: 65, speed: 55 },
         moves: ['CLUB_APP', 'OWL_MAN', 'GONJIAM', 'CHARACTER_ED', 'RICH_BOY'],
         abilities: ['THICK_FAT', 'STURDY'],
         desc: '부잣집 도련님 학켓몬'
@@ -390,7 +390,7 @@ export const HackemonData = {
         name: '윤호몬',
         type: Types.MATH,
         image: yunhoImg,
-        baseStats: { hp: 45, attack: 60, defense: 40, speed: 80 },
+        baseStats: { hp: 55, attack: 60, defense: 40, speed: 80 },
         moves: ['TEN_YEAR_POWER', 'LICK', 'EARLY_GRAD', 'YOUNGJO_BEST', 'ENYO_EAT'],
         abilities: ['SPEED_BOOST', 'ADAPTABILITY'],
         desc: '매우 어린 학켓몬'
