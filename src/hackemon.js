@@ -88,7 +88,7 @@ export const Moves = {
     TACKLE: { name: '몸통박치기', type: Types.NORMAL, power: 40, accuracy: 100, pp: 35, desc: '몸을 부딪쳐 데미지를 준다.' },
 
     // 1. Lee Hak-beom (Chemistry)
-    BINGE_EAT: { name: '많이 먹기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 10, effect: 'heal', desc: 'HP의 50%를 회복한다.' },
+    BINGE_EAT: { name: '많이 먹기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 10, effect: 'heal_50', desc: 'HP의 50%를 회복한다.' },
     KUMCHEOK: { name: '쿰척 쿰척', type: Types.NORMAL, power: 0, accuracy: 90, pp: 20, effect: 'debuff_atk', desc: '상대의 공격력을 낮춘다.' },
     DIET_PLAN: { name: '나 살 뺄거야', type: Types.NORMAL, power: 0, accuracy: 100, pp: 20, effect: 'buff_def', desc: '방어력을 올린다.' },
     MICRO_FUEL: { name: '미쉥물 연료 젼줴', type: Types.CHEMISTRY, power: 70, accuracy: 90, pp: 10, desc: '미생물 연료로 강력한 공격!' },
@@ -107,21 +107,21 @@ export const Moves = {
     COLOR_BLIND: { name: '적록색맹', type: Types.ENGINEERING, power: 0, accuracy: 90, pp: 20, effect: 'debuff_acc', desc: '상대 명중률 하락.' },
     FACTORIAL: { name: '7!=720', type: Types.MATH, power: 100, accuracy: 70, pp: 5, highCrit: true, desc: '7!=...?' },
     QUADRUPED: { name: '4족 보행', type: Types.NORMAL, power: 0, accuracy: 100, pp: 20, effect: 'buff_atk', desc: '공격력을 올린다.' },
-    OREO: { name: '민생 회복 오레오', type: Types.NORMAL, power: 0, accuracy: 100, pp: 5, effect: 'heal', desc: 'HP의 50%를 회복.' },
+    OREO: { name: '민생 회복 오레오', type: Types.NORMAL, power: 0, accuracy: 100, pp: 5, effect: 'heal', desc: 'HP의 25%를 회복.' },
     DRUM: { name: '드럼통', type: Types.ENGINEERING, power: 0, accuracy: 80, pp: 10, effect: 'stun', desc: '드럼통으로 기절!' },
 
     // 4. Park Sang-wook (Physics)
     ARMPIT: { name: '겨드랑이', type: Types.NORMAL, power: 0, accuracy: 90, pp: 20, effect: 'debuff_acc', desc: '상대 명중률 하락.' },
     NONSENSE: { name: '뻘소리', type: Types.NORMAL, power: 0, accuracy: 80, pp: 15, effect: 'stun', desc: '뻘소리로 혼란!' },
     PIRATE_KING: { name: '해적왕', type: Types.PHYSICS, power: 75, accuracy: 95, pp: 15, desc: '해적왕의 일격!' },
-    YUMIKATSU: { name: '유미카츠', type: Types.NORMAL, power: 0, accuracy: 100, pp: 5, effect: 'heal', desc: 'HP 50% 회복.' },
+    YUMIKATSU: { name: '유미카츠', type: Types.NORMAL, power: 0, accuracy: 100, pp: 5, effect: 'heal', desc: 'HP 25% 회복.' },
     INJEONG_SSAM: { name: '인정쌤', type: Types.NORMAL, power: 0, accuracy: 100, pp: 20, effect: 'buff_atk', desc: '공격력 상승.' },
     CAREER_CLASS: { name: '4교시는 진로야', type: Types.PHYSICS, power: 60, accuracy: 100, pp: 20, desc: '진로 시간의 힘.' },
 
     // 5. Eom Ji-o (Chemistry)
     EOM_SMELL: { name: '엄발내', type: Types.CHEMISTRY, power: 20, accuracy: 95, pp: 25, effect: 'dot', desc: '3턴 지속 데미지.' },
     EOM_OEBA: { name: '엄메바', type: Types.CHEMISTRY, power: 0, accuracy: 100, pp: 20, effect: 'buff_spd', desc: '스피드 상승.' },
-    TNT_DROP: { name: 'TNT 떨어져서 왔는데요?', type: Types.CHEMISTRY, power: 0, accuracy: 100, pp: 5, effect: 'heal', desc: 'HP 50% 회복.' },
+    TNT_DROP: { name: 'TNT 떨어져서 왔는데요?', type: Types.CHEMISTRY, power: 0, accuracy: 100, pp: 5, effect: 'heal', desc: 'HP 25% 회복.' },
     SUCCESSFULLY: { name: '성공적으로', type: Types.EARTH, power: 0, accuracy: 100, pp: 5, effect: 'buff_all', desc: '모든 능력치 상승!' },
     METEOR: { name: '메테오', type: Types.EARTH, power: 90, accuracy: 80, pp: 5, highCrit: true, desc: '운석으로 강타!' },
     UM: { name: '엄', type: Types.NORMAL, power: 50, accuracy: 100, pp: 30, desc: '엄.' },
@@ -131,7 +131,7 @@ export const Moves = {
     KKAMBI: { name: '깜비', type: Types.PHYSICS, power: 60, accuracy: 100, pp: 20, desc: '어디있는지 안보여!' },
     MINIMIZE: { name: '작아지기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 20, effect: 'buff_eva', desc: '회피율 상승.' },
     HAIR_POWDER: { name: '흑채복사', type: Types.PHYSICS, power: 55, accuracy: 95, pp: 20, desc: '흑채의 힘.' },
-    FETCH_WATER: { name: '물길러오기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 5, effect: 'heal', desc: 'HP 50% 회복.' },
+    FETCH_WATER: { name: '물길러오기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 5, effect: 'heal', desc: 'HP 25% 회복.' },
     CAN_THROW: { name: '캔날리기', type: Types.PHYSICS, power: 50, accuracy: 95, pp: 25, highCrit: true, desc: '캔을 던진다. 급소율↑' },
     NIGA: { name: '니가', type: Types.NORMAL, power: 65, accuracy: 100, pp: 20, desc: '"어둠".' },
 
@@ -153,7 +153,7 @@ export const Moves = {
     CLUB_APP: { name: '동아리 지원서 제출', type: Types.PHYSICS, power: 60, accuracy: 95, pp: 20, desc: '누군가의 힘.' },
     OWL_MAN: { name: '부엉남', type: Types.PHYSICS, power: 70, accuracy: 90, pp: 15, desc: '부엉이의 힘.' },
     GONJIAM: { name: '곤지암 사진 보여주기', type: Types.NORMAL, power: 0, accuracy: 90, pp: 15, effect: 'stun', desc: '무서워서 기절!' },
-    CHARACTER_ED: { name: '인성교육받기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 10, effect: 'heal', desc: 'HP 50% 회복.' },
+    CHARACTER_ED: { name: '인성교육받기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 10, effect: 'heal', desc: 'HP 25% 회복.' },
     RICH_BOY: { name: '부잣집 도련님', type: Types.NORMAL, power: 0, accuracy: 100, pp: 5, effect: 'money', desc: '돈을 2배 획득.' },
 
     // 10. Yun-ho (Math)

@@ -509,6 +509,10 @@ export class Battle {
         } else if (move.effect?.startsWith('debuff')) {
             this.applyDebuff(defender, move.effect);
         } else if (move.effect === 'heal') {
+            const heal = Math.floor(attacker.maxHp * 0.25);
+            attacker.hp = Math.min(attacker.maxHp, attacker.hp + heal);
+            this.callbacks.onLog(`${attacker.name}의 체력이 회복되었다! (+${heal})`);
+        } else if (move.effect === 'heal_50') {
             const heal = Math.floor(attacker.maxHp * 0.5);
             attacker.hp = Math.min(attacker.maxHp, attacker.hp + heal);
             this.callbacks.onLog(`${attacker.name}의 체력이 회복되었다! (+${heal})`);
