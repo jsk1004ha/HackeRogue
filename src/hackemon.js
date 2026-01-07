@@ -327,7 +327,7 @@ export const HackemonData = {
         name: '욱개몬',
         type: Types.ENGINEERING,
         image: wookgaeImg,
-        baseStats: { hp: 65, attack: 85, defense: 55, speed: 65 },
+        baseStats: { hp: 55, attack: 85, defense: 55, speed: 55 },
         moves: ['CRUNCH', 'COLOR_BLIND', 'FACTORIAL', 'QUADRUPED', 'OREO', 'DRUM'],
         abilities: ['ADAPTABILITY', 'INTIMIDATE'],
         desc: '개 같은 학켓몬'
@@ -354,7 +354,7 @@ export const HackemonData = {
         name: '한비몬',
         type: Types.PHYSICS,
         image: hanbiImg,
-        baseStats: { hp: 50, attack: 65, defense: 50, speed: 95 },
+        baseStats: { hp: 50, attack: 75, defense: 50, speed: 95 },
         moves: ['STEALTH', 'KKAMBI', 'MINIMIZE', 'HAIR_POWDER', 'FETCH_WATER', 'CAN_THROW', 'NIGA'],
         abilities: ['SPEED_BOOST', 'SNIPER'],
         desc: '은신의 달인 학켓몬'
@@ -390,7 +390,7 @@ export const HackemonData = {
         name: '윤호몬',
         type: Types.MATH,
         image: yunhoImg,
-        baseStats: { hp: 45, attack: 50, defense: 40, speed: 80 },
+        baseStats: { hp: 45, attack: 60, defense: 40, speed: 80 },
         moves: ['TEN_YEAR_POWER', 'LICK', 'EARLY_GRAD', 'YOUNGJO_BEST', 'ENYO_EAT'],
         abilities: ['SPEED_BOOST', 'ADAPTABILITY'],
         desc: '매우 어린 학켓몬'
