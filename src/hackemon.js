@@ -176,11 +176,11 @@ export const Moves = {
     EARLY_GRAD: { name: '조기 졸업', type: Types.NORMAL, power: 50, accuracy: 100, pp: 3, effect: 'uturn', desc: '공격 후 교체한다.' },
 
     // 11. 지민몬 (Info)
-    MY_YOON: { name: '아 내 윤석열', type: Types.INFO, power: 80, accuracy: 90, pp: 10, desc: '정보의 힘으로 강타!' },
-    IS_IT_SOLVED: { name: '그거 푼거야?', type: Types.CHEMISTRY, power: 70, accuracy: 95, pp: 15, desc: '화학의 힘으로 공격.' },
-    STOP_EATING: { name: '그만 처먹어', type: Types.NORMAL, power: 0, accuracy: 85, pp: 15, effect: 'stun', desc: '상대를 기절시킨다.' },
-    BE_LATE: { name: '지각하기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 10, effect: 'buff_spd', desc: '늦게 오는 것으로 스피드 상승.' },
-    TECH_NOOB_POWER: { name: '컴맹의 힘', type: Types.INFO, power: 90, accuracy: 80, pp: 5, highCrit: true, desc: '컴맹이라 역으로 강해진다! 급소율↑' }
+    MY_YOON: { name: '아 내 윤석열', type: Types.INFO, power: 80, accuracy: 90, pp: 10, desc: '그분의 힘으로 강타!' },
+    IS_IT_SOLVED: { name: '그거 푼거야?', type: Types.CHEMISTRY, power: 70, accuracy: 95, pp: 15, desc: '그거 진짜 점수임?' },
+    STOP_EATING: { name: '그만 처먹어', type: Types.NORMAL, power: 0, accuracy: 85, pp: 15, effect: 'stun', desc: '그래 학범아' },
+    BE_LATE: { name: '지각하기', type: Types.NORMAL, power: 0, accuracy: 100, pp: 10, effect: 'buff_spd', desc: '지각 전문임' },
+    TECH_NOOB_POWER: { name: '컴맹의 힘', type: Types.INFO, power: 90, accuracy: 80, pp: 5, highCrit: true, desc: '라이빗인데 컴맹이라 역으로 강해진다! 급소율↑' }
 };
 
 // Get all learnable moves for a hackemon type
