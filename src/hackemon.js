@@ -359,7 +359,7 @@ export const HackemonData = {
         type: Types.CHEMISTRY,
         image: jioImg,
         baseStats: { hp: 60, attack: 75, defense: 45, speed: 90 },  // 총합 270
-        moves: ['EOM_SMELL', 'EOM_OEBA', 'TNT_DROP', 'SUCCESSFULLY', 'METEOR', 'UM'],
+        moves: ['EOM_SMELL', 'EOM_OEBA', 'UM', 'TNT_DROP', 'SUCCESSFULLY', 'METEOR'],
         abilities: ['SPEED_BOOST', 'ADAPTABILITY'],
         desc: '냄새나는 학켓몬'
     },

@@ -1082,6 +1082,9 @@ function showForgetMoveScreen(mon, newMove, isTM = false) {
 
 // ============== GAME OVER / VICTORY ==============
 function renderGameOver() {
+  // Delete save data on game over to prevent returning to previous save
+  deleteSave();
+
   document.querySelector('#app').innerHTML = `
     <div class="gameover-overlay"></div>
     <div class="gameover-screen">
