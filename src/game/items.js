@@ -230,25 +230,25 @@ export function getRerollCost(wave) {
 // Trainers
 export const Trainers = {
     WAVE_20: {
-        name: '2반 반장', party: ['LEE_HAK_BEOM', 'KIM_SANG_WON'], levelBonus: 5
+        name: '2반 반장', party: ['LEE_HAK_BEOM', 'KIM_SANG_WON'], levelBonus: 7
     },
     WAVE_50: {
         name: '1반 반장', party: ['AHN_WOOK_GAE', 'PARK_SANG_WOOK', 'EOM_JI_O'], levelBonus: 10
     },
     WAVE_80: {
-        name: '4반 반장', party: ['JO_HAN_BI', 'JUNG_JAE_SEONG', 'LEE_HA_EUM'], levelBonus: 15
+        name: '4반 반장', party: ['JO_HAN_BI', 'JUNG_JAE_SEONG', 'LEE_HA_EUM'], levelBonus: 13
     },
     WAVE_110: {
         name: '인정쌤', party: ['KIM_SANG_WON', 'PARK_SANG_WOOK', 'JO_HAN_BI', 'YANG_JUN_HYEOK'], levelBonus: 20
     },
     WAVE_140: {
-        name: '일규쌤', party: ['LEE_HAK_BEOM', 'EOM_JI_O', 'LEE_HA_EUM', 'AHN_WOOK_GAE'], levelBonus: 25
+        name: '일규쌤', party: ['LEE_HAK_BEOM', 'EOM_JI_O', 'LEE_HA_EUM', 'AHN_WOOK_GAE'], levelBonus: 23
     },
     WAVE_170: {
-        name: '현준쌤', party: ['AHN_WOOK_GAE', 'JUNG_JAE_SEONG', 'YANG_JUN_HYEOK', 'KIM_SANG_WON', 'PARK_SANG_WOOK'], levelBonus: 30
+        name: '현준쌤', party: ['AHN_WOOK_GAE', 'JUNG_JAE_SEONG', 'YANG_JUN_HYEOK', 'KIM_SANG_WON', 'PARK_SANG_WOOK'], levelBonus: 27
     },
     WAVE_200: {
-        name: '경민쌤', party: ['LEE_HAK_BEOM', 'KIM_SANG_WON', 'AHN_WOOK_GAE', 'EOM_JI_O', 'JUNG_JAE_SEONG', 'YANG_JUN_HYEOK'], levelBonus: 35, isFinalBoss: true
+        name: '경민쌤', party: ['LEE_HAK_BEOM', 'KIM_SANG_WON', 'AHN_WOOK_GAE', 'EOM_JI_O', 'JUNG_JAE_SEONG', 'YANG_JUN_HYEOK'], levelBonus: 30, isFinalBoss: true
     }
 };
 
