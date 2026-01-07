@@ -22,13 +22,20 @@ export const Types = {
 };
 
 export const TypeChart = {
-    [Types.PHYSICS]: { strong: [Types.CHEMISTRY, Types.EARTH], weak: [Types.ENGINEERING, Types.MATH, Types.INFO] },
+    // 물리>화학, 물리>지구
+    [Types.PHYSICS]: { strong: [Types.CHEMISTRY, Types.EARTH], weak: [Types.ENGINEERING] },
+    // 화학>생물, 화학>지구
     [Types.CHEMISTRY]: { strong: [Types.BIOLOGY, Types.EARTH], weak: [Types.PHYSICS] },
-    [Types.ENGINEERING]: { strong: [Types.PHYSICS, Types.INFO], weak: [Types.MATH, Types.BIOLOGY] },
+    // 공학>물리
+    [Types.ENGINEERING]: { strong: [Types.PHYSICS], weak: [Types.MATH, Types.BIOLOGY] },
+    // 생물>공학
     [Types.BIOLOGY]: { strong: [Types.ENGINEERING], weak: [Types.CHEMISTRY, Types.EARTH] },
+    // 지구>생물, 지구>수학
     [Types.EARTH]: { strong: [Types.BIOLOGY, Types.MATH], weak: [Types.PHYSICS, Types.CHEMISTRY] },
-    [Types.MATH]: { strong: [Types.PHYSICS, Types.ENGINEERING], weak: [Types.INFO, Types.EARTH] },
-    [Types.INFO]: { strong: [Types.MATH, Types.PHYSICS], weak: [Types.ENGINEERING] },
+    // 수학>공학
+    [Types.MATH]: { strong: [Types.ENGINEERING], weak: [Types.INFO, Types.EARTH] },
+    // 정보>수학
+    [Types.INFO]: { strong: [Types.MATH], weak: [] },
     [Types.NORMAL]: { strong: [], weak: [] }
 };
 
