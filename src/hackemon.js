@@ -27,7 +27,7 @@ export const TypeChart = {
     // 화학>생물, 화학>지구
     [Types.CHEMISTRY]: { strong: [Types.BIOLOGY, Types.EARTH], weak: [Types.PHYSICS] },
     // 공학>물리
-    [Types.ENGINEERING]: { strong: [Types.PHYSICS], weak: [Types.MATH, Types.BIOLOGY] },
+    [Types.ENGINEERING]: { strong: [Types.PHYSICS], weak: [Types.PHYSICS, Types.BIOLOGY] },
     // 생물>공학
     [Types.BIOLOGY]: { strong: [Types.ENGINEERING], weak: [Types.CHEMISTRY, Types.EARTH] },
     // 지구>생물, 지구>수학

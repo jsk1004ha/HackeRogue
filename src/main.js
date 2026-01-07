@@ -93,8 +93,8 @@ function autoSave() {
     // Save enemy data to persist across sessions
     cachedEnemy: gameState.cachedEnemy,
     cachedEnemyWave: gameState.cachedEnemyWave,
-    // Save rewards cache to persist across sessions
-    cachedRewards: gameState.cachedRewards,
+    // Save rewards cache to persist across sessions (only IDs to avoid function serialization issues)
+    cachedRewardIds: gameState.cachedRewards ? gameState.cachedRewards.map(r => ({ id: r.id, moveKey: r.moveKey })) : null,
     cachedRewardsWave: gameState.cachedRewardsWave,
     // Save wave completion status
     waveCompleted: gameState.waveCompleted || false
@@ -143,8 +143,13 @@ function loadGame() {
       // Restore enemy cache for consistent enemy on load
       cachedEnemy: data.cachedEnemy,
       cachedEnemyWave: data.cachedEnemyWave,
-      // Restore rewards cache for consistent rewards on load
-      cachedRewards: data.cachedRewards,
+      // Restore rewards cache by reconstructing from IDs
+      cachedRewards: data.cachedRewardIds ? data.cachedRewardIds.map(r => {
+        if (r.moveKey) {
+          return generateTM(r.moveKey);
+        }
+        return Items[r.id] ? { ...Items[r.id] } : null;
+      }).filter(r => r) : null,
       cachedRewardsWave: data.cachedRewardsWave,
       // Restore wave completion status
       waveCompleted: data.waveCompleted || false
@@ -745,6 +750,7 @@ function renderRewardShop(newMoves = []) {
   if (!gameState.cachedRewards || gameState.cachedRewardsWave !== gameState.wave) {
     gameState.cachedRewards = generateFreeRewards(gameState.wave, 3);
     gameState.cachedRewardsWave = gameState.wave;
+    autoSave(); // Save immediately after generating rewards
   }
   const freeRewards = gameState.cachedRewards;
 
