@@ -1224,16 +1224,16 @@ function startWave() {
       if (wave <= 30) {
         waveScaling = Math.floor(wave * 0.07);
       } else if (wave <= 60) {
-        waveScaling = 7 + Math.floor((wave - 30) * 0.18); // ~1 per 7 waves
+        waveScaling = 7 + Math.floor((wave - 30) * 0.1); // ~1 per 7 waves
       } else if (wave <= 100) {
-        waveScaling = 12 + Math.floor((wave - 60) * 0.25); // ~1 per 5 waves
+        waveScaling = 12 + Math.floor((wave - 60) * 0.18); // ~1 per 5 waves
       } else {
-        waveScaling = 20 + Math.floor((wave - 100) * 0.33); // ~1 per 3 waves
+        waveScaling = 20 + Math.floor((wave - 100) * 0.25); // ~1 per 3 waves
       }
 
       // Additional scaling based on max player level (catch up mechanic)
       // If player is high level, enemies scale faster
-      const levelCatchUp = maxPlayerLevel > 40 ? Math.floor((maxPlayerLevel - 40) * 0.15) : 0;
+      const levelCatchUp = maxPlayerLevel > 40 ? Math.floor((maxPlayerLevel - 40) * 0.13) : 0;
 
       const levelVariance = Math.floor(Math.random() * 4); // 0 to +2
       let baseLevel = Math.max(1, avgLevel + waveScaling + levelCatchUp + levelVariance);
