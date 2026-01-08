@@ -30,7 +30,7 @@ export const TypeChart = {
     // 공학>물리
     [Types.ENGINEERING]: { strong: [Types.PHYSICS], weak: [Types.MATH, Types.BIOLOGY] },
     // 생물>공학
-    [Types.BIOLOGY]: { strong: [Types.ENGINEERING], weak: [Types.CHEMISTRY, Types.EARTH] },
+    [Types.BIOLOGY]: { strong: [Types.ENGINEERING, Types.INFO], weak: [Types.CHEMISTRY, Types.EARTH] },
     // 지구>생물, 지구>수학
     [Types.EARTH]: { strong: [Types.BIOLOGY, Types.MATH], weak: [Types.PHYSICS, Types.CHEMISTRY] },
     // 수학>공학
